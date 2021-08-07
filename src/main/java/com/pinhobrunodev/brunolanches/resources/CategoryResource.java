@@ -1,9 +1,7 @@
-package com.pinhobrunodev.brunolanches.dto.category.resources;
+package com.pinhobrunodev.brunolanches.resources;
 
 import com.pinhobrunodev.brunolanches.dto.category.CategoryDTO;
-import com.pinhobrunodev.brunolanches.entities.Category;
 import com.pinhobrunodev.brunolanches.services.CategoryService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
