@@ -1,4 +1,4 @@
-package com.pinhobrunodev.brunolanches.dto.category.resources.exceptions;
+package com.pinhobrunodev.brunolanches.resources.exceptions;
 
 import com.pinhobrunodev.brunolanches.services.exceptions.DatabaseException;
 import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundException;
