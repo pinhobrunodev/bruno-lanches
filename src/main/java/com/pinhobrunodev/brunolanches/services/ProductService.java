@@ -11,6 +11,8 @@ import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundExcept
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,11 @@ public class ProductService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Transactional(readOnly = true)
+    public Page<ProductDTO> pagedSearch(Pageable pageable) {
+        Page<Product> list = repository.findAll(pageable);
+        return list.map(ProductDTO::new);
+    }
 
     @Transactional
     public void save(ProductDTO dto) {
@@ -71,7 +78,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductDTO findByName(String name) {
-        Product aux = repository.findByName(name);
+        Product aux = repository.findByName(name.substring(0, 1).toUpperCase().concat(name.substring(1)));
         if (aux == null)
             throw new ResourceNotFoundException("Name not found : " + name);
         return new ProductDTO(aux, aux.getCategories());
@@ -84,6 +91,7 @@ public class ProductService {
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
+        entity.getCategories().clear();
         for (CategoryDTO categoryDTO : dto.getCategories()) {
             Category aux = categoryRepository.getById(categoryDTO.getId());
             entity.getCategories().add(aux);
