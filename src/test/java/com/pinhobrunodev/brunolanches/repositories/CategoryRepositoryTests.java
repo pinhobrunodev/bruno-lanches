@@ -19,6 +19,7 @@ public class CategoryRepositoryTests {
     @Autowired
     private CategoryRepository repository;
 
+    private Long totalCategories;
     private Long existingId;
     private Long nonExistingId;
     private String existingName;
@@ -27,6 +28,7 @@ public class CategoryRepositoryTests {
     @BeforeEach
     public void setUp() throws Exception {
         existingId = 1L;
+        totalCategories = 3L;
         nonExistingId = 999L;
         existingName = "Pizza";
         nonExistingName = "Bob";
@@ -62,7 +64,7 @@ public class CategoryRepositoryTests {
     public void saveShouldPersist() {
         Category cat = Factory.createCategory();
         repository.save(cat);
-        Assertions.assertEquals(2L, cat.getId());
+        Assertions.assertEquals(totalCategories+1, cat.getId());
     }
 
     @Test
