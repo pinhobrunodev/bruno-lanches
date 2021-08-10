@@ -1,7 +1,6 @@
 package com.pinhobrunodev.brunolanches.repositories;
 
 
-import com.pinhobrunodev.brunolanches.entities.Category;
 import com.pinhobrunodev.brunolanches.entities.Product;
 import com.pinhobrunodev.brunolanches.factory.Factory;
 import org.junit.jupiter.api.Assertions;

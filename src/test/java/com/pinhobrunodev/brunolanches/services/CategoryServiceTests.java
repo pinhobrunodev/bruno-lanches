@@ -18,7 +18,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityNotFoundException;
-
 import java.util.Optional;
 
 import static org.mockito.Mockito.times;
