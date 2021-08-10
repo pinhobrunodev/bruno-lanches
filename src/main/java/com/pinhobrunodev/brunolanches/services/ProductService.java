@@ -46,6 +46,7 @@ public class ProductService {
         try {
             Product entity = new Product();
             entity = updateProduct(id, dto);
+            repository.save(entity);
             return new ProductDTO(entity, entity.getCategories());
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found : " + id);
@@ -69,10 +70,9 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id) {
-        Product aux = repository.getById(id);
         return repository
                 .findById(id)
-                .map(x -> new ProductDTO(aux, aux.getCategories()))
+                .map(x -> new ProductDTO(x, x.getCategories()))
                 .orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
     }
 

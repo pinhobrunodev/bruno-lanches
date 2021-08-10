@@ -32,7 +32,9 @@ public class CategoryService {
     @Transactional
     public CategoryDTO update(Long id, CategoryDTO dto) {
         try {
-            return new CategoryDTO(toUpdate(dto, id));
+            Category entity = toUpdate(dto,id);
+            repository.save(entity);
+            return new CategoryDTO(entity);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("ID not found : " + id);
         }
