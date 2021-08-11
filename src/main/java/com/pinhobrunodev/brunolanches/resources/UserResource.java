@@ -53,12 +53,12 @@ public class UserResource {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/by-id/{id}")
     public ResponseEntity<ShowUserInfoDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
-    @GetMapping(value = "/{name}")
+    @GetMapping(value = "/by-name/{name}")
     public ResponseEntity<ShowUserInfoDTO> findByName(@PathVariable String name) {
         return ResponseEntity.ok().body(service.findByName(name));
     }

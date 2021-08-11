@@ -1,6 +1,7 @@
 package com.pinhobrunodev.brunolanches.dto.user;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pinhobrunodev.brunolanches.entities.User;
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ public class UserUpdateDTO {
     private String phone;
     private String email;
     private String cpf;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate date;
     private String address;
 
