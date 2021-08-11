@@ -16,6 +16,7 @@ public class Factory {
     }
 
 
+
     public static Product createProduct() {
         Product product = new Product(null
                 , "Phone", "Good Phone", 800.0);

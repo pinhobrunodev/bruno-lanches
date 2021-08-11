@@ -17,6 +17,7 @@ public class User {
     private String name;
     @Column(columnDefinition = "TEXT")
     private String phone;
+    private String password;
     private String email;
     @Column(columnDefinition = "TEXT")
     private String cpf;
@@ -31,6 +32,14 @@ public class User {
 
 
     public User() {
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {
