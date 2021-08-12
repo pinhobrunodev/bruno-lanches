@@ -4,6 +4,7 @@ package com.pinhobrunodev.brunolanches.resources;
 import com.pinhobrunodev.brunolanches.dto.driver.RegisterDriverDTO;
 import com.pinhobrunodev.brunolanches.dto.driver.ShowDriverInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.driver.UpdateDriverDTO;
+import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.user.ShowUserInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.user.UserRegisterDTO;
 import com.pinhobrunodev.brunolanches.dto.user.UserUpdateDTO;
@@ -58,4 +59,8 @@ public class DriverResource {
     }
 
 
+    @GetMapping(value = "/orders/pending")
+    public ResponseEntity<List<ShowOrderInfoDTO>> showPendingOrders() {
+        return ResponseEntity.ok().body(service.showPendingOrders());
+    }
 }

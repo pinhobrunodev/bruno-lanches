@@ -3,8 +3,11 @@ package com.pinhobrunodev.brunolanches.services;
 import com.pinhobrunodev.brunolanches.dto.driver.RegisterDriverDTO;
 import com.pinhobrunodev.brunolanches.dto.driver.ShowDriverInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.driver.UpdateDriverDTO;
+import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
 import com.pinhobrunodev.brunolanches.entities.Driver;
+import com.pinhobrunodev.brunolanches.entities.Order;
 import com.pinhobrunodev.brunolanches.repositories.DriverRepository;
+import com.pinhobrunodev.brunolanches.repositories.OrderRepository;
 import com.pinhobrunodev.brunolanches.services.exceptions.DatabaseException;
 import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,8 @@ public class DriverService {
 
     @Autowired
     private DriverRepository repository;
+    @Autowired
+    private OrderRepository orderRepository;
 
 
     @Transactional
@@ -71,6 +76,11 @@ public class DriverService {
         return repository.findAll().stream().map(ShowDriverInfoDTO::new).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<ShowOrderInfoDTO> showPendingOrders() {
+        return orderRepository.ShowAllPendingOrders().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
+    }
+
     // Auxiliary methods
 
     public Driver copyDtoToEntity(Driver entity, RegisterDriverDTO dto) {
@@ -93,5 +103,6 @@ public class DriverService {
         aux.setDate(dto.getDate());
         return aux;
     }
+
 
 }

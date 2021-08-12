@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_user")
@@ -31,7 +33,15 @@ public class User {
     private Instant updatedAt;
 
 
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders = new HashSet<>();
+
+
     public User() {
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
     }
 
     public String getPassword() {

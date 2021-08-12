@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_driver")
@@ -20,14 +23,21 @@ public class Driver {
     private String password;
     @Column(columnDefinition = "TEXT")
     private String cpf;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDate date;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant updatedAt;
 
+    @OneToMany(mappedBy = "driver")
+    private Set<Order> orders = new HashSet<>();
+
     public Driver() {
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
     }
 
     public Long getId() {
