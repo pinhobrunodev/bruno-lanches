@@ -1,12 +1,15 @@
 package com.pinhobrunodev.brunolanches.resources;
 
 
+import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.user.ShowUserInfoDTO;
+import com.pinhobrunodev.brunolanches.dto.user.ShowUserOrderDTO;
 import com.pinhobrunodev.brunolanches.dto.user.UserRegisterDTO;
 import com.pinhobrunodev.brunolanches.dto.user.UserUpdateDTO;
 import com.pinhobrunodev.brunolanches.services.UserService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,18 +24,6 @@ public class UserResource {
     @Autowired
     private UserService service;
 
-    /**
-     * TODO
-     * /users => OK
-     * /user/{name} => OK
-     * /user/{id} => OK
-     * /user/{id}/orders
-     * /users/{id}/orders/status/pending
-     * /users/{id}/orders/status/delivered
-     * /users/save => OK
-     * /users/update/{id} => OK
-     * /users/delete/{id} => OK
-     **/
 
 
     @PostMapping(value = "/save")
@@ -67,6 +58,17 @@ public class UserResource {
     public ResponseEntity<List<ShowUserInfoDTO>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
     }
+
+    @GetMapping(value = "/orders-pending/{id}")
+    public ResponseEntity<List<ShowUserOrderDTO>> showAllPendingOrdersByUserId(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.showAllPendingOrdersByUserId(id));
+    }
+
+    @GetMapping(value = "/orders-delivered/{id}")
+    public ResponseEntity<List<ShowUserOrderDTO>> showAllDeliveredOrdersByUserId(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.showAllDeliveredOrdersByUserId(id));
+    }
+
 
 
 }

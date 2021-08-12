@@ -3,6 +3,7 @@ package com.pinhobrunodev.brunolanches.services;
 import com.pinhobrunodev.brunolanches.dto.order.OrderDTO;
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.product.ProductDTO;
+import com.pinhobrunodev.brunolanches.dto.user.ShowUserOrderDTO;
 import com.pinhobrunodev.brunolanches.entities.Order;
 import com.pinhobrunodev.brunolanches.entities.Product;
 import com.pinhobrunodev.brunolanches.entities.enums.OrderStatus;
@@ -37,13 +38,25 @@ public class OrderService {
         repository.save(copyDtoToEntity(entity, dto));
     }
 
-
-
     @Transactional(readOnly = true)
-    public List<ShowOrderInfoDTO> findAll(){
-        return repository.findAll().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
+    public List<ShowOrderInfoDTO> showAllPendingOrders() {
+        return repository.showAllPendingOrders().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<ShowOrderInfoDTO> showAllDeliveredOrders() {
+        return repository.showAllDeliveredOrders().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ShowUserOrderDTO> showAllOrdersByUserId(Long id) {
+        return repository.showAllOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ShowOrderInfoDTO> findAll() {
+        return repository.findAll().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
+    }
 
     // Auxiliary methods
 

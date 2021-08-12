@@ -3,6 +3,7 @@ package com.pinhobrunodev.brunolanches.resources;
 
 import com.pinhobrunodev.brunolanches.dto.driver.RegisterDriverDTO;
 import com.pinhobrunodev.brunolanches.dto.driver.ShowDriverInfoDTO;
+import com.pinhobrunodev.brunolanches.dto.driver.TakeOrderDTO;
 import com.pinhobrunodev.brunolanches.dto.driver.UpdateDriverDTO;
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.user.ShowUserInfoDTO;
@@ -30,6 +31,13 @@ public class DriverResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         service.save(dto);
         return ResponseEntity.created(uri).build();
+    }
+
+
+    @PostMapping(value = "/take-orders-pending/{id}")
+    public ResponseEntity<Void> takePendingOrder(@PathVariable Long id, @RequestBody TakeOrderDTO dto) {
+        service.takePendingOrder(id, dto);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "/update/{id}")

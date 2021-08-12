@@ -3,6 +3,7 @@ package com.pinhobrunodev.brunolanches.resources;
 
 import com.pinhobrunodev.brunolanches.dto.order.OrderDTO;
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
+import com.pinhobrunodev.brunolanches.dto.user.ShowUserOrderDTO;
 import com.pinhobrunodev.brunolanches.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +31,18 @@ public class OrderResource {
     @GetMapping
     public ResponseEntity<List<ShowOrderInfoDTO>> findAll(){
         return  ResponseEntity.ok().body(service.findAll());
+    }
+
+    @GetMapping(value = "/{id}")
+    public  ResponseEntity<List<ShowUserOrderDTO>> showAllOrdersByUserId(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.showAllOrdersByUserId(id));
+    }
+    @GetMapping(value = "/delivered")
+    public  ResponseEntity<List<ShowOrderInfoDTO>> showAllDeliveredOrders(){
+        return ResponseEntity.ok().body(service.showAllDeliveredOrders());
+    }
+    @GetMapping(value = "/pending")
+    public  ResponseEntity<List<ShowOrderInfoDTO>> showAllPendingOrders(){
+        return ResponseEntity.ok().body(service.showAllPendingOrders());
     }
 }

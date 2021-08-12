@@ -2,6 +2,7 @@ package com.pinhobrunodev.brunolanches.services;
 
 import com.pinhobrunodev.brunolanches.dto.driver.RegisterDriverDTO;
 import com.pinhobrunodev.brunolanches.dto.driver.ShowDriverInfoDTO;
+import com.pinhobrunodev.brunolanches.dto.driver.TakeOrderDTO;
 import com.pinhobrunodev.brunolanches.dto.driver.UpdateDriverDTO;
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
 import com.pinhobrunodev.brunolanches.entities.Driver;
@@ -78,7 +79,14 @@ public class DriverService {
 
     @Transactional(readOnly = true)
     public List<ShowOrderInfoDTO> showPendingOrders() {
-        return orderRepository.ShowAllPendingOrders().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
+        return orderRepository.showAllPendingOrders().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
+    }
+
+
+    @Transactional
+    public void takePendingOrder(Long id, TakeOrderDTO dto){
+        Order aux = orderRepository.getById(id);
+        aux.setDriver(repository.getById(dto.getDriver_id()));
     }
 
     // Auxiliary methods

@@ -1,6 +1,7 @@
 package com.pinhobrunodev.brunolanches.repositories;
 
 import com.pinhobrunodev.brunolanches.entities.Order;
+import com.pinhobrunodev.brunolanches.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -9,5 +10,11 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order,Long> {
 
     @Query("SELECT DISTINCT obj FROM Order obj WHERE  obj.status = 1")
-    List<Order> ShowAllPendingOrders();
+    List<Order> showAllPendingOrders();
+
+    @Query("SELECT DISTINCT obj FROM Order obj WHERE  obj.status = 0")
+    List<Order> showAllDeliveredOrders();
+
+    @Query("SELECT  DISTINCT  obj FROM User obj JOIN FETCH  obj.orders  WHERE obj.id = :id")
+    List<User> showAllOrdersByUserId(Long id);
 }

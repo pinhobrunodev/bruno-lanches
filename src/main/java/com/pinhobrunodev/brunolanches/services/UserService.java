@@ -1,9 +1,12 @@
 package com.pinhobrunodev.brunolanches.services;
 
+import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.user.ShowUserInfoDTO;
+import com.pinhobrunodev.brunolanches.dto.user.ShowUserOrderDTO;
 import com.pinhobrunodev.brunolanches.dto.user.UserRegisterDTO;
 import com.pinhobrunodev.brunolanches.dto.user.UserUpdateDTO;
 import com.pinhobrunodev.brunolanches.entities.User;
+import com.pinhobrunodev.brunolanches.repositories.OrderRepository;
 import com.pinhobrunodev.brunolanches.repositories.UserRepository;
 import com.pinhobrunodev.brunolanches.services.exceptions.DatabaseException;
 import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundException;
@@ -70,6 +73,17 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<ShowUserInfoDTO> findAll() {
         return repository.findAll().stream().map(ShowUserInfoDTO::new).collect(Collectors.toList());
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<ShowUserOrderDTO> showAllPendingOrdersByUserId(Long id) {
+        return repository.showAllPendingOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ShowUserOrderDTO> showAllDeliveredOrdersByUserId(Long id) {
+        return repository.showAllDeliveredOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
     }
 
     // Auxiliary methods

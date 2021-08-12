@@ -9,8 +9,5 @@
 /users/{id}/orders/status/delivered -> Mostrar todos os pedidos de um usuario que esta como DELIVERED
 
 
-*** DRIVER ***
-
--> Pensar em alguma forma de adicionar um pedido pendente a um entregador e anexar esse ID do entregador na tabela de Order no campo driver_id
 
 
