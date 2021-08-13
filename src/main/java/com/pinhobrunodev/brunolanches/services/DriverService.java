@@ -88,6 +88,7 @@ public class DriverService {
 
 
     //TODO : Think a way to block drivers that take another Order but is in  a current Order.
+    //TODO: DRIVER 1 - TAKE ORDER 1       BUT    DRIVER 2 CAN TAKE ORDER 1  , SOLUTION ? WHEN DRIVER 1 TAKE A PENDING ORDER WE REMOVE THAT ORDER FROM THE "ORDERS TO TAKE PAGE"
     @Transactional
     public void takePendingOrder(Long id, TakeOrderDTO dto) {
         Order aux = orderRepository.getById(id);
@@ -103,7 +104,7 @@ public class DriverService {
     }
 
 
-    //TODO: DRIVER 1 - TAKE ORDER 1       BUT    DRIVER 2 CAN TAKE ORDER 1  , SOLUTION ? WHEN DRIVER 1 TAKE A PENDING ORDER WE REMOVE THAT ORDER FROM THE "ORDERS TO TAKE PAGE"
+    //TODO: MAKE A EXCEPTION VALIDATION
     @Transactional
     public void setDelivered(Long id) {
         try {
