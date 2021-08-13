@@ -15,6 +15,10 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     @Query("SELECT DISTINCT obj FROM Order obj WHERE  obj.status = 1")
     Page<Order> PageshowAllPendingOrders(Pageable pageable);
 
+    @Query("SELECT DISTINCT obj FROM Order obj WHERE  obj.status = 1")
+    List<Order> showAllPendingOrders();
+
+
     @Query("SELECT DISTINCT obj FROM Order obj WHERE  obj.status = 0")
     List<Order> showAllDeliveredOrders();
 
