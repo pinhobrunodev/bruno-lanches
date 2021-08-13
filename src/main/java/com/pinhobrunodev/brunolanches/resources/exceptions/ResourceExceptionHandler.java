@@ -2,6 +2,7 @@ package com.pinhobrunodev.brunolanches.resources.exceptions;
 
 import com.pinhobrunodev.brunolanches.services.exceptions.DatabaseException;
 import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundException;
+import com.pinhobrunodev.brunolanches.services.exceptions.UnprocessableActionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -32,6 +33,18 @@ public class ResourceExceptionHandler {
         error.setTimestamp(Instant.now());
         error.setStatus(status.value());
         error.setError("Database Exception");
+        error.setMessage(e.getMessage());
+        error.setPath(request.getRequestURI());
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(UnprocessableActionException.class)
+    public  ResponseEntity<StandardError> unprocessableAction(UnprocessableActionException e,HttpServletRequest request){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError error = new StandardError();
+        error.setTimestamp(Instant.now());
+        error.setStatus(status.value());
+        error.setError("Unprocessable Action");
         error.setMessage(e.getMessage());
         error.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(error);

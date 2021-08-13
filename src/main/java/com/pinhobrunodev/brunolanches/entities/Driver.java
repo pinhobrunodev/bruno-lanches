@@ -23,6 +23,7 @@ public class Driver {
     private String password;
     @Column(columnDefinition = "TEXT")
     private String cpf;
+    private Boolean isInCurrentOrder;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDate date;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -34,6 +35,14 @@ public class Driver {
     private Set<Order> orders = new HashSet<>();
 
     public Driver() {
+    }
+
+    public Boolean getInCurrentOrder() {
+        return isInCurrentOrder;
+    }
+
+    public void setInCurrentOrder(Boolean inCurrentOrder) {
+        isInCurrentOrder = inCurrentOrder;
     }
 
     public Set<Order> getOrders() {
