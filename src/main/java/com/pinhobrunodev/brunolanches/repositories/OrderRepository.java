@@ -1,5 +1,6 @@
 package com.pinhobrunodev.brunolanches.repositories;
 
+import com.pinhobrunodev.brunolanches.entities.Driver;
 import com.pinhobrunodev.brunolanches.entities.Order;
 import com.pinhobrunodev.brunolanches.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,11 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
     @Query("SELECT  DISTINCT  obj FROM User obj JOIN FETCH  obj.orders  WHERE obj.id = :id")
     List<User> showAllOrdersByUserId(Long id);
+
+    @Query("SELECT  DISTINCT  obj FROM Driver obj JOIN  FETCH  obj.orders o WHERE obj.id = :id AND o.status=0 ")
+    List<Driver> showAllDeliveredOrdersByDriverId(Long id);
+
+    @Query("SELECT  DISTINCT  obj FROM Driver obj JOIN  FETCH  obj.orders o WHERE obj.id = :id AND o.status=1 ")
+    List<Driver> showAllPendingOrdersByDriverId(Long id);
+
 }

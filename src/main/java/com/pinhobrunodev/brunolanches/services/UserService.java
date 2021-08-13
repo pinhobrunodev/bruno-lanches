@@ -1,10 +1,7 @@
 package com.pinhobrunodev.brunolanches.services;
 
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.user.ShowUserInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.user.ShowUserOrderDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserRegisterDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserUpdateDTO;
+import com.pinhobrunodev.brunolanches.dto.user.*;
 import com.pinhobrunodev.brunolanches.entities.User;
 import com.pinhobrunodev.brunolanches.repositories.OrderRepository;
 import com.pinhobrunodev.brunolanches.repositories.UserRepository;
@@ -13,6 +10,8 @@ import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundExcept
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -84,6 +83,12 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<ShowUserOrderDTO> showAllDeliveredOrdersByUserId(Long id) {
         return repository.showAllDeliveredOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<UserPagedSearchDTO> pagedSearch(Pageable pageable) {
+        Page<User> result = repository.findAll(pageable);
+        return result.map(UserPagedSearchDTO::new);
     }
 
     // Auxiliary methods

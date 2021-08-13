@@ -1,12 +1,12 @@
 package com.pinhobrunodev.brunolanches.services;
 
-import com.pinhobrunodev.brunolanches.dto.driver.RegisterDriverDTO;
-import com.pinhobrunodev.brunolanches.dto.driver.ShowDriverInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.driver.TakeOrderDTO;
-import com.pinhobrunodev.brunolanches.dto.driver.UpdateDriverDTO;
+import com.pinhobrunodev.brunolanches.dto.driver.*;
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
+import com.pinhobrunodev.brunolanches.dto.user.UserPagedSearchDTO;
 import com.pinhobrunodev.brunolanches.entities.Driver;
 import com.pinhobrunodev.brunolanches.entities.Order;
+import com.pinhobrunodev.brunolanches.entities.User;
+import com.pinhobrunodev.brunolanches.entities.enums.OrderStatus;
 import com.pinhobrunodev.brunolanches.repositories.DriverRepository;
 import com.pinhobrunodev.brunolanches.repositories.OrderRepository;
 import com.pinhobrunodev.brunolanches.services.exceptions.DatabaseException;
@@ -14,6 +14,8 @@ import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundExcept
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,17 +79,61 @@ public class DriverService {
         return repository.findAll().stream().map(ShowDriverInfoDTO::new).collect(Collectors.toList());
     }
 
+
+    // Can be used on "My Current Orders"
     @Transactional(readOnly = true)
     public List<ShowOrderInfoDTO> showPendingOrders() {
         return orderRepository.showAllPendingOrders().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
     }
 
 
+    //TODO : Think a way to block drivers that take another Order but is in  a current Order.
     @Transactional
-    public void takePendingOrder(Long id, TakeOrderDTO dto){
+    public void takePendingOrder(Long id, TakeOrderDTO dto) {
         Order aux = orderRepository.getById(id);
+
+        if (aux.getDriver() != null) {
+            Driver driverAux = aux.getDriver();
+            if (driverAux.getOrders().contains(aux.getStatus().name().equals("PENDING"))) {
+                System.out.println("Ja possui pedido pendente");
+                throw new ResourceNotFoundException("NAO PODE");
+            }
+        }
         aux.setDriver(repository.getById(dto.getDriver_id()));
     }
+
+
+    //TODO: DRIVER 1 - TAKE ORDER 1       BUT    DRIVER 2 CAN TAKE ORDER 1  , SOLUTION ? WHEN DRIVER 1 TAKE A PENDING ORDER WE REMOVE THAT ORDER FROM THE "ORDERS TO TAKE PAGE"
+    @Transactional
+    public void setDelivered(Long id) {
+        try {
+            Order aux = orderRepository.getById(id);
+            Driver driverAux = aux.getDriver();
+            if (driverAux.getOrders().stream().filter(x -> x.getId() == aux.getId()).findFirst().orElse(null) != null) {
+                aux.setStatus(OrderStatus.DELIVERED);
+            }
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Entity not found");
+        }
+
+    }
+
+    @Transactional(readOnly = true)
+    public List<ShowDriverOrderDTO> showAllDeliveredOrdersByDriverId(Long id) {
+        return orderRepository.showAllDeliveredOrdersByDriverId(id).stream().map(ShowDriverOrderDTO::new).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ShowDriverOrderDTO> showAllPendingOrdersByDriverId(Long id) {
+        return orderRepository.showAllPendingOrdersByDriverId(id).stream().map(ShowDriverOrderDTO::new).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<DriverPagedSearchDTO> pagedSearch(Pageable pageable) {
+        Page<Driver> result = repository.findAll(pageable);
+        return result.map(DriverPagedSearchDTO::new);
+    }
+
 
     // Auxiliary methods
 

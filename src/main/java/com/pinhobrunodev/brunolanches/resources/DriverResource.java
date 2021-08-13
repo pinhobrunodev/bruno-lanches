@@ -1,17 +1,12 @@
 package com.pinhobrunodev.brunolanches.resources;
 
 
-import com.pinhobrunodev.brunolanches.dto.driver.RegisterDriverDTO;
-import com.pinhobrunodev.brunolanches.dto.driver.ShowDriverInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.driver.TakeOrderDTO;
-import com.pinhobrunodev.brunolanches.dto.driver.UpdateDriverDTO;
+import com.pinhobrunodev.brunolanches.dto.driver.*;
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.user.ShowUserInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserRegisterDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserUpdateDTO;
 import com.pinhobrunodev.brunolanches.services.DriverService;
-import com.pinhobrunodev.brunolanches.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -38,6 +33,12 @@ public class DriverResource {
     public ResponseEntity<Void> takePendingOrder(@PathVariable Long id, @RequestBody TakeOrderDTO dto) {
         service.takePendingOrder(id, dto);
         return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping(value = "/set-delivered/{id}")
+    public ResponseEntity<Void> setDelivered(@PathVariable Long id){
+        service.setDelivered(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/update/{id}")
@@ -70,5 +71,20 @@ public class DriverResource {
     @GetMapping(value = "/orders/pending")
     public ResponseEntity<List<ShowOrderInfoDTO>> showPendingOrders() {
         return ResponseEntity.ok().body(service.showPendingOrders());
+    }
+
+    @GetMapping(value = "/paged-search")
+    public ResponseEntity<Page<DriverPagedSearchDTO>> pagedSearch(Pageable pageable){
+        return ResponseEntity.ok().body(service.pagedSearch(pageable));
+    }
+
+    @GetMapping(value = "/my-delivered-orders/{id}")
+    public  ResponseEntity<List<ShowDriverOrderDTO>> showAllDeliveredOrdersByDriverId(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.showAllDeliveredOrdersByDriverId(id));
+    }
+
+    @GetMapping(value = "/my-pending-orders/{id}")
+    public  ResponseEntity<List<ShowDriverOrderDTO>> showAllPendingOrdersByDriverId(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.showAllPendingOrdersByDriverId(id));
     }
 }

@@ -1,15 +1,11 @@
 package com.pinhobrunodev.brunolanches.resources;
 
 
-import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.user.ShowUserInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.user.ShowUserOrderDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserRegisterDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserUpdateDTO;
+import com.pinhobrunodev.brunolanches.dto.user.*;
 import com.pinhobrunodev.brunolanches.services.UserService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -69,6 +65,11 @@ public class UserResource {
         return ResponseEntity.ok().body(service.showAllDeliveredOrdersByUserId(id));
     }
 
+
+    @GetMapping(value = "/paged-search")
+    public ResponseEntity<Page<UserPagedSearchDTO>> pagedSearch(Pageable pageable){
+        return ResponseEntity.ok().body(service.pagedSearch(pageable));
+    }
 
 
 }
