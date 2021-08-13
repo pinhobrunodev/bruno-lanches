@@ -11,7 +11,6 @@ import com.pinhobrunodev.brunolanches.repositories.DriverRepository;
 import com.pinhobrunodev.brunolanches.repositories.OrderRepository;
 import com.pinhobrunodev.brunolanches.services.exceptions.DatabaseException;
 import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundException;
-import com.pinhobrunodev.brunolanches.services.exceptions.UnprocessableActionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -92,14 +91,19 @@ public class DriverService {
     @Transactional
     public void takePendingOrder(Long id, TakeOrderDTO dto) {
         Order aux = orderRepository.getById(id);
-        if (aux.getDriver() != null && aux.getDriver().getInCurrentOrder() == true) {
-            throw new UnprocessableActionException(aux.getDriver().getName() + " is already in a Order");
+
+        if (aux.getDriver() != null) {
+            Driver driverAux = aux.getDriver();
+            if (driverAux.getOrders().contains(aux.getStatus().name().equals("PENDING"))) {
+                System.out.println("Ja possui pedido pendente");
+                throw new ResourceNotFoundException("NAO PODE");
+            }
         }
         aux.setDriver(repository.getById(dto.getDriver_id()));
-        aux.getDriver().setInCurrentOrder(true);
     }
 
 
+    //TODO: DRIVER 1 - TAKE ORDER 1       BUT    DRIVER 2 CAN TAKE ORDER 1  , SOLUTION ? WHEN DRIVER 1 TAKE A PENDING ORDER WE REMOVE THAT ORDER FROM THE "ORDERS TO TAKE PAGE"
     @Transactional
     public void setDelivered(Long id) {
         try {
