@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -109,7 +110,7 @@ public class DriverService {
             if (driverAux == null) {
                 throw new ResourceNotFoundException("Entity not found");
             }
-            if (driverAux.getOrders().stream().filter(x -> x.getId() == aux.getId()).findFirst().orElse(null) != null) {
+            if (null != driverAux.getOrders().stream().filter(x -> Objects.equals(x.getId(), aux.getId())).findFirst().orElse(null)) {
                 aux.setStatus(OrderStatus.DELIVERED);
             }
 
