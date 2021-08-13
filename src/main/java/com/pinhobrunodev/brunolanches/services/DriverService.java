@@ -93,6 +93,7 @@ public class DriverService {
         Order aux = orderRepository.getById(id);
 
         if (aux.getDriver() != null) {
+
             Driver driverAux = aux.getDriver();
             if (driverAux.getOrders().contains(aux.getStatus().name().equals("PENDING"))) {
                 System.out.println("Ja possui pedido pendente");
