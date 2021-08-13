@@ -82,10 +82,12 @@ public class DriverService {
     }
 
 
-    // Can be used on "My Current Orders"
+    // Can be used on "Paged Pending Order" on Driver screen.
     @Transactional(readOnly = true)
-    public List<ShowOrderInfoDTO> showPendingOrders() {
-        return orderRepository.showAllPendingOrders().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
+    public Page<ShowOrderInfoDTO> showPendingOrders(Pageable pageable) {
+        Page<Order> page = orderRepository.PageshowAllPendingOrders(pageable);
+        return page.map(ShowOrderInfoDTO::new);
+
     }
 
 
@@ -125,6 +127,7 @@ public class DriverService {
         return orderRepository.showAllDeliveredOrdersByDriverId(id).stream().map(ShowDriverOrderDTO::new).collect(Collectors.toList());
     }
 
+    // Can be used on "My Current Orders"
     @Transactional(readOnly = true)
     public List<ShowDriverOrderDTO> showAllPendingOrdersByDriverId(Long id) {
         return orderRepository.showAllPendingOrdersByDriverId(id).stream().map(ShowDriverOrderDTO::new).collect(Collectors.toList());
