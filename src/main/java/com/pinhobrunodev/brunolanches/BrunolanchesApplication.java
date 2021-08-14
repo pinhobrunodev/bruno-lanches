@@ -10,5 +10,4 @@ public class BrunolanchesApplication {
 		SpringApplication.run(BrunolanchesApplication.class, args);
 	}
 
-	//TODO :  EXCEPTION VALIDATION IN ALL SERVICES METHODS
 }

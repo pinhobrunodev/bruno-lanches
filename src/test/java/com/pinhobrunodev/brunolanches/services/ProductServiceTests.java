@@ -34,7 +34,6 @@ import java.util.Optional;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-//TODO : UPDATE WHEN VALID ID TEST
 
 @ExtendWith(SpringExtension.class)
 public class ProductServiceTests {

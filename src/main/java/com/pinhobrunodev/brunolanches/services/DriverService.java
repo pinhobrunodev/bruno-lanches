@@ -76,10 +76,17 @@ public class DriverService {
         return new ShowDriverInfoDTO(aux);
     }
 
-
+    // Can be Admin "All Drivers of the app" screen.
     @Transactional(readOnly = true)
     public List<ShowDriverInfoDTO> findAll() {
         return repository.findAll().stream().map(ShowDriverInfoDTO::new).collect(Collectors.toList());
+    }
+
+    // Can be Admin "Paged All Drivers of the app" screen.
+    @Transactional(readOnly = true)
+    public Page<DriverPagedSearchDTO> pagedSearch(Pageable pageable) {
+        Page<Driver> result = repository.findAll(pageable);
+        return result.map(DriverPagedSearchDTO::new);
     }
 
 
@@ -134,21 +141,17 @@ public class DriverService {
 
     }
 
+
+    // Can be used on "My Finished Orders" Driver screen
     @Transactional(readOnly = true)
     public List<ShowDriverOrderDTO> showAllDeliveredOrdersByDriverId(Long id) {
         return orderRepository.showAllDeliveredOrdersByDriverId(id).stream().map(ShowDriverOrderDTO::new).collect(Collectors.toList());
     }
 
-    // Can be used on "My Current Orders"
+    // Can be used on "My Current Orders (PENDING) " Driver screen
     @Transactional(readOnly = true)
     public List<ShowDriverOrderDTO> showAllPendingOrdersByDriverId(Long id) {
         return orderRepository.showAllPendingOrdersByDriverId(id).stream().map(ShowDriverOrderDTO::new).collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
-    public Page<DriverPagedSearchDTO> pagedSearch(Pageable pageable) {
-        Page<Driver> result = repository.findAll(pageable);
-        return result.map(DriverPagedSearchDTO::new);
     }
 
 

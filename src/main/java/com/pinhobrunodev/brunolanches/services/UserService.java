@@ -69,27 +69,31 @@ public class UserService {
     }
 
 
+    // Can be Admin "All Users of the app" screen.
     @Transactional(readOnly = true)
     public List<ShowUserInfoDTO> findAll() {
         return repository.findAll().stream().map(ShowUserInfoDTO::new).collect(Collectors.toList());
     }
 
-
-    @Transactional(readOnly = true)
-    public List<ShowUserOrderDTO> showAllPendingOrdersByUserId(Long id) {
-        return repository.showAllPendingOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
-    public List<ShowUserOrderDTO> showAllDeliveredOrdersByUserId(Long id) {
-        return repository.showAllDeliveredOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
-    }
-
+    // Can be Admin "Paged All Users of the app" screen.
     @Transactional(readOnly = true)
     public Page<UserPagedSearchDTO> pagedSearch(Pageable pageable) {
         Page<User> result = repository.findAll(pageable);
         return result.map(UserPagedSearchDTO::new);
     }
+
+    // Can be "User Current Orders - PENDING " screen.
+    @Transactional(readOnly = true)
+    public List<ShowUserOrderDTO> showAllPendingOrdersByUserId(Long id) {
+        return repository.showAllPendingOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
+    }
+
+    // Can be "User FINISHED Orders" screen.
+    @Transactional(readOnly = true)
+    public List<ShowUserOrderDTO> showAllDeliveredOrdersByUserId(Long id) {
+        return repository.showAllDeliveredOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
+    }
+
 
     // Auxiliary methods
 

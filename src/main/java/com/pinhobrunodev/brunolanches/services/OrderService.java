@@ -40,21 +40,25 @@ public class OrderService {
         repository.save(copyDtoToEntity(entity, dto));
     }
 
+    // Can be Admin " All Pending Orders" screen.
     @Transactional(readOnly = true)
     public List<ShowOrderInfoDTO> showAllPendingOrders() {
         return repository.showAllPendingOrders().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
     }
 
+    // Can be Admin "All Delivered Orders" screen.
     @Transactional(readOnly = true)
     public List<ShowOrderInfoDTO> showAllDeliveredOrders() {
         return repository.showAllDeliveredOrders().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
     }
 
+    // Can be Admin "Filter All Orders (PENDING AND DELIVERED) by User ID" screen
     @Transactional(readOnly = true)
     public List<ShowUserOrderDTO> showAllOrdersByUserId(Long id) {
         return repository.showAllOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
     }
 
+    // Can be Admin "All orders of all Users"
     @Transactional(readOnly = true)
     public List<ShowOrderInfoDTO> findAll() {
         return repository.findAll().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
