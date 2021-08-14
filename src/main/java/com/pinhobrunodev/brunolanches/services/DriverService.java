@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -91,7 +92,6 @@ public class DriverService {
     }
 
 
-    //TODO : Think a way to block drivers that take another Order but is in  a current Order.
     @Transactional
     public void takePendingOrder(Long id, Long driver_id) {
 
@@ -99,17 +99,20 @@ public class DriverService {
             Order aux = orderRepository.getById(id);
             Driver driverAux = repository.getById(driver_id);
             if (aux.getDriver() != null) {
-                throw new UnprocessableActionException(aux.getDriver().getName() + " already took that Order");
+                throw new UnprocessableActionException(aux.getDriver().getName() + " already took that Order.");
             }
-            // Need  another if structure to validate drivers that take another Order but is in  a current Order(Status PENDING || setInCurrentOrder = TRUE.
-            aux.setDriver(repository.getById(driver_id));
+            if (aux.getDriver() == null) {
+                aux.setDriver(driverAux);
+                if (aux.getDriver().getInCurrentOrder() == Boolean.TRUE) {
+                    aux.getDriver().getOrders().removeIf(x -> x.getDriver().getInCurrentOrder() == Boolean.TRUE);
+                    throw new UnprocessableActionException(aux.getDriver().getName() + " already has a PENDING Order.");
+                }
+            }
+            aux.setDriver(driverAux);
             aux.getDriver().setInCurrentOrder(true);
-
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Entity not found ");
         }
-
-
     }
 
     @Transactional
@@ -122,6 +125,7 @@ public class DriverService {
             }
             if (null != driverAux.getOrders().stream().filter(x -> Objects.equals(x.getId(), aux.getId())).findFirst().orElse(null)) {
                 aux.setStatus(OrderStatus.DELIVERED);
+                aux.getDriver().setInCurrentOrder(Boolean.FALSE);
             }
 
         } catch (EntityNotFoundException e) {
