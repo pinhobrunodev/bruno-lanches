@@ -93,13 +93,21 @@ public class DriverService {
 
     //TODO : Think a way to block drivers that take another Order but is in  a current Order.
     @Transactional
-    public void takePendingOrder(Long id, TakeOrderDTO dto) {
-        Order aux = orderRepository.getById(id);
-        if (aux.getDriver() != null) {
-            throw new UnprocessableActionException(aux.getDriver().getName() + " is in a already order");
+    public void takePendingOrder(Long id, Long driver_id) {
+
+        try {
+            Order aux = orderRepository.getById(id);
+            Driver driverAux = repository.getById(driver_id);
+            if (aux.getDriver() != null) {
+                throw new UnprocessableActionException(aux.getDriver().getName() + " already took that Order");
+            }
+            // Need  another if structure to validate drivers that take another Order but is in  a current Order(Status PENDING || setInCurrentOrder = TRUE.
+            aux.setDriver(repository.getById(driver_id));
+            aux.getDriver().setInCurrentOrder(true);
+
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Entity not found ");
         }
-        aux.setDriver(repository.getById(dto.getDriver_id()));
-        aux.getDriver().setInCurrentOrder(true);
 
 
     }

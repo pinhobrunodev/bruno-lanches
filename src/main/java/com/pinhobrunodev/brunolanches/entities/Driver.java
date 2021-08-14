@@ -123,4 +123,21 @@ public class Driver {
         this.updatedAt = Instant.now();
     }
 
+
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", isInCurrentOrder=" + isInCurrentOrder +
+                ", date=" + date +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", orders=" + orders +
+                '}';
+    }
 }

@@ -29,9 +29,9 @@ public class DriverResource {
     }
 
 
-    @PostMapping(value = "/take-orders-pending/{id}")
-    public ResponseEntity<Void> takePendingOrder(@PathVariable Long id, @RequestBody TakeOrderDTO dto) {
-        service.takePendingOrder(id, dto);
+    @PostMapping(value = "/take-orders-pending/{id}/driver-id/{driver_id}")
+    public ResponseEntity<Void> takePendingOrder(@PathVariable Long id, @PathVariable Long driver_id) {
+        service.takePendingOrder(id, driver_id);
         return ResponseEntity.ok().build();
     }
 
