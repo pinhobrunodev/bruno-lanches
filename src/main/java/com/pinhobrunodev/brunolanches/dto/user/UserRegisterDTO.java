@@ -2,9 +2,12 @@ package com.pinhobrunodev.brunolanches.dto.user;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.pinhobrunodev.brunolanches.dto.role.RoleDTO;
 import com.pinhobrunodev.brunolanches.entities.User;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRegisterDTO {
     private Long id;
@@ -16,6 +19,7 @@ public class UserRegisterDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate date;
     private String address;
+    private List<RoleDTO> roles = new ArrayList<>();
 
     public UserRegisterDTO() {
 
@@ -30,6 +34,7 @@ public class UserRegisterDTO {
         date = entity.getDate();
         address = entity.getAddress();
         password = entity.getPassword();
+        entity.getRoles().forEach(x -> roles.add(new RoleDTO(x)));
     }
 
     public Long getId() {
@@ -94,5 +99,9 @@ public class UserRegisterDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<RoleDTO> getRoles() {
+        return roles;
     }
 }

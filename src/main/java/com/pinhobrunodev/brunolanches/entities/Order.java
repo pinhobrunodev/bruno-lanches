@@ -21,6 +21,7 @@ public class Order {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime moment;
     private OrderStatus status;
+    private Boolean isInProgress;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -37,6 +38,15 @@ public class Order {
     private Set<Product> items = new HashSet<>();
 
     public Order() {
+    }
+
+
+    public Boolean getInProgress() {
+        return isInProgress;
+    }
+
+    public void setInProgress(Boolean inProgress) {
+        isInProgress = inProgress;
     }
 
     public Set<Product> getItems() {

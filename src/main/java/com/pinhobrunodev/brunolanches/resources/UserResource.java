@@ -21,7 +21,6 @@ public class UserResource {
     private UserService service;
 
 
-
     @PostMapping(value = "/save")
     public ResponseEntity<Void> save(@RequestBody UserRegisterDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
@@ -56,18 +55,23 @@ public class UserResource {
     }
 
     @GetMapping(value = "/orders-pending/{id}")
-    public ResponseEntity<List<ShowUserOrderDTO>> showAllPendingOrdersByUserId(@PathVariable Long id){
+    public ResponseEntity<List<ShowUserOrderDTO>> showAllPendingOrdersByUserId(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.showAllPendingOrdersByUserId(id));
     }
 
     @GetMapping(value = "/orders-delivered/{id}")
-    public ResponseEntity<List<ShowUserOrderDTO>> showAllDeliveredOrdersByUserId(@PathVariable Long id){
+    public ResponseEntity<List<ShowUserOrderDTO>> showAllDeliveredOrdersByUserId(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.showAllDeliveredOrdersByUserId(id));
+    }
+
+    @GetMapping(value = "/orders-in-progress/{id}")
+    public ResponseEntity<List<ShowUserOrderDTO>> showAllInProgressOrdersByUserId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(service.showAllInProgressOrdersByUserId(id));
     }
 
 
     @GetMapping(value = "/paged-search")
-    public ResponseEntity<Page<UserPagedSearchDTO>> pagedSearch(Pageable pageable){
+    public ResponseEntity<Page<UserPagedSearchDTO>> pagedSearch(Pageable pageable) {
         return ResponseEntity.ok().body(service.pagedSearch(pageable));
     }
 

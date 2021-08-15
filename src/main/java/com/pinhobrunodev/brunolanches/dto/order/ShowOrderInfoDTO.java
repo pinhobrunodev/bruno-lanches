@@ -1,6 +1,7 @@
 package com.pinhobrunodev.brunolanches.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pinhobrunodev.brunolanches.dto.driver.ShowDriverInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.product.ProductDTO;
 import com.pinhobrunodev.brunolanches.entities.Order;
@@ -14,6 +15,10 @@ import java.util.List;
 import java.util.Set;
 
 public class ShowOrderInfoDTO {
+
+    @JsonIgnore
+    public final Double DRIVER_PERCENTAGE = 0.8;
+
     private Long id;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime moment;
@@ -34,7 +39,23 @@ public class ShowOrderInfoDTO {
         client_name = entity.getUser().getName();
         client_phone = entity.getUser().getPhone();
         client_address = entity.getUser().getAddress();
-        entity.getItems().forEach(x->items.add(new ProductDTO(x)));
+        entity.getItems().forEach(x -> items.add(new ProductDTO(x)));
+    }
+
+    public Double getTotalToPay() {
+        double sum = 0;
+        for (ProductDTO dto : items) {
+            sum += dto.getPrice();
+        }
+        return sum;
+    }
+
+    public Double getDriverAmount() {
+        double driverAmount = 0;
+        double aux = 0;
+        aux = getTotalToPay() * DRIVER_PERCENTAGE;
+        driverAmount = getTotalToPay() - aux;
+        return driverAmount;
     }
 
 

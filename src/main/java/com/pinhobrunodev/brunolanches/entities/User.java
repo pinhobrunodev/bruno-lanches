@@ -36,8 +36,16 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Order> orders = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
 
     public User() {
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
     public Set<Order> getOrders() {

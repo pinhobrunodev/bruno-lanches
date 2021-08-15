@@ -2,13 +2,14 @@ package com.pinhobrunodev.brunolanches.services;
 
 import com.pinhobrunodev.brunolanches.dto.driver.*;
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserPagedSearchDTO;
+import com.pinhobrunodev.brunolanches.dto.role.RoleDTO;
 import com.pinhobrunodev.brunolanches.entities.Driver;
 import com.pinhobrunodev.brunolanches.entities.Order;
-import com.pinhobrunodev.brunolanches.entities.User;
+import com.pinhobrunodev.brunolanches.entities.Role;
 import com.pinhobrunodev.brunolanches.entities.enums.OrderStatus;
 import com.pinhobrunodev.brunolanches.repositories.DriverRepository;
 import com.pinhobrunodev.brunolanches.repositories.OrderRepository;
+import com.pinhobrunodev.brunolanches.repositories.RoleRepository;
 import com.pinhobrunodev.brunolanches.services.exceptions.DatabaseException;
 import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundException;
 import com.pinhobrunodev.brunolanches.services.exceptions.UnprocessableActionException;
@@ -23,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,6 +34,8 @@ public class DriverService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Transactional
     public void save(RegisterDriverDTO dto) {
@@ -117,6 +119,8 @@ public class DriverService {
             }
             aux.setDriver(driverAux);
             aux.getDriver().setInCurrentOrder(true);
+            aux.setInProgress(Boolean.TRUE);
+            aux.setStatus(OrderStatus.IN_PROGRESS);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Entity not found ");
         }
@@ -133,6 +137,7 @@ public class DriverService {
             if (null != driverAux.getOrders().stream().filter(x -> Objects.equals(x.getId(), aux.getId())).findFirst().orElse(null)) {
                 aux.setStatus(OrderStatus.DELIVERED);
                 aux.getDriver().setInCurrentOrder(Boolean.FALSE);
+                aux.setInProgress(Boolean.FALSE);
             }
 
         } catch (EntityNotFoundException e) {
@@ -144,17 +149,17 @@ public class DriverService {
 
     // Can be used on "My Finished Orders" Driver screen
     @Transactional(readOnly = true)
-    public List<ShowDriverOrderDTO> showAllDeliveredOrdersByDriverId(Long id) {
-        return orderRepository.showAllDeliveredOrdersByDriverId(id).stream().map(ShowDriverOrderDTO::new).collect(Collectors.toList());
+    public List<ShowMyDeliveredOrders> showAllDeliveredOrdersByDriverId(Long id) {
+        return orderRepository.showAllDeliveredOrdersByDriverId(id).stream().map(ShowMyDeliveredOrders::new).collect(Collectors.toList());
     }
 
-    // Can be used on "My Current Orders (PENDING) " Driver screen
+
+    // *
+    // Can be used on "My Current Orders (IN_PROGRESS) " Driver screen
     @Transactional(readOnly = true)
-    public List<ShowDriverOrderDTO> showAllPendingOrdersByDriverId(Long id) {
-        return orderRepository.showAllPendingOrdersByDriverId(id).stream().map(ShowDriverOrderDTO::new).collect(Collectors.toList());
+    public List<ShowDriverOrderDTO> showAllInProgressOrdersByDriverId(Long id) {
+        return orderRepository.showAllInProgressOrdersByDriverId(id).stream().map(ShowDriverOrderDTO::new).collect(Collectors.toList());
     }
-
-
     // Auxiliary methods
 
     public Driver copyDtoToEntity(Driver entity, RegisterDriverDTO dto) {
@@ -164,6 +169,14 @@ public class DriverService {
         entity.setPhone(dto.getPhone());
         entity.setEmail(dto.getEmail());
         entity.setDate(dto.getDate());
+        for (RoleDTO roleDTO : dto.getRoles()) {
+            Role aux = roleRepository.getById(roleDTO.getId());
+            if (aux.getId() == 3) {
+                entity.getRoles().add(aux);
+            } else {
+                throw new UnprocessableActionException("Error");
+            }
+        }
         return entity;
     }
 

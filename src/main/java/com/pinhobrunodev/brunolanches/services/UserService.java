@@ -1,12 +1,16 @@
 package com.pinhobrunodev.brunolanches.services;
 
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
+import com.pinhobrunodev.brunolanches.dto.role.RoleDTO;
 import com.pinhobrunodev.brunolanches.dto.user.*;
+import com.pinhobrunodev.brunolanches.entities.Role;
 import com.pinhobrunodev.brunolanches.entities.User;
 import com.pinhobrunodev.brunolanches.repositories.OrderRepository;
+import com.pinhobrunodev.brunolanches.repositories.RoleRepository;
 import com.pinhobrunodev.brunolanches.repositories.UserRepository;
 import com.pinhobrunodev.brunolanches.services.exceptions.DatabaseException;
 import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundException;
+import com.pinhobrunodev.brunolanches.services.exceptions.UnprocessableActionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -25,6 +29,8 @@ public class UserService {
 
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private RoleRepository roleRepository;
 
 
     @Transactional
@@ -82,7 +88,7 @@ public class UserService {
         return result.map(UserPagedSearchDTO::new);
     }
 
-    // Can be "User Current Orders - PENDING " screen.
+    // Can be "User PENDING Orders - PENDING " screen.
     @Transactional(readOnly = true)
     public List<ShowUserOrderDTO> showAllPendingOrdersByUserId(Long id) {
         return repository.showAllPendingOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
@@ -92,6 +98,12 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<ShowUserOrderDTO> showAllDeliveredOrdersByUserId(Long id) {
         return repository.showAllDeliveredOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
+    }
+
+    // Can be "User IN PROGRESS Orders" screen.
+    @Transactional(readOnly = true)
+    public List<ShowUserOrderDTO> showAllInProgressOrdersByUserId(Long id) {
+        return repository.showAllInProgressOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
     }
 
 
@@ -105,6 +117,14 @@ public class UserService {
         entity.setAddress(dto.getAddress());
         entity.setEmail(dto.getEmail());
         entity.setDate(dto.getDate());
+        for (RoleDTO roleDTO : dto.getRoles()) {
+            Role aux = roleRepository.getById(roleDTO.getId());
+            if (aux.getId() == 2) {
+                entity.getRoles().add(aux);
+            } else {
+                throw new UnprocessableActionException("Error");
+            }
+        }
         return entity;
     }
 

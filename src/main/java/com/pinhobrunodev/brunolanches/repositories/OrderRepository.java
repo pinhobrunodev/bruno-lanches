@@ -10,25 +10,28 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface OrderRepository extends JpaRepository<Order,Long> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT DISTINCT obj FROM Order obj WHERE  obj.status = 1")
     Page<Order> PageshowAllPendingOrders(Pageable pageable);
 
+    @Query("SELECT DISTINCT obj FROM Order obj WHERE  obj.status = 0")
+    List<Order> showAllDeliveredOrders();
+
     @Query("SELECT DISTINCT obj FROM Order obj WHERE  obj.status = 1")
     List<Order> showAllPendingOrders();
 
-
-    @Query("SELECT DISTINCT obj FROM Order obj WHERE  obj.status = 0")
-    List<Order> showAllDeliveredOrders();
+    @Query("SELECT DISTINCT obj FROM Order obj WHERE  obj.status = 2")
+    List<Order> showAllInProgressOrders();
 
     @Query("SELECT  DISTINCT  obj FROM User obj JOIN FETCH  obj.orders  WHERE obj.id = :id")
     List<User> showAllOrdersByUserId(Long id);
 
+
     @Query("SELECT  DISTINCT  obj FROM Driver obj JOIN  FETCH  obj.orders o WHERE obj.id = :id AND o.status=0 ")
     List<Driver> showAllDeliveredOrdersByDriverId(Long id);
 
-    @Query("SELECT  DISTINCT  obj FROM Driver obj JOIN  FETCH  obj.orders o WHERE obj.id = :id AND o.status=1 ")
-    List<Driver> showAllPendingOrdersByDriverId(Long id);
+    @Query("SELECT  DISTINCT  obj FROM Driver obj JOIN  FETCH  obj.orders o WHERE obj.id = :id AND o.status= 2 AND o.isInProgress=true")
+    List<Driver> showAllInProgressOrdersByDriverId(Long id);
 
 }

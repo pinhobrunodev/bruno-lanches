@@ -1,29 +1,23 @@
 package com.pinhobrunodev.brunolanches.dto.driver;
 
+import com.pinhobrunodev.brunolanches.dto.order.OrderDTO;
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.product.ProductDTO;
 import com.pinhobrunodev.brunolanches.entities.Driver;
-import com.pinhobrunodev.brunolanches.entities.Order;
-import com.pinhobrunodev.brunolanches.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowDriverOrderDTO {
-
-
-
+public class ShowMyDeliveredOrders {
 
     private List<ShowOrderInfoDTO> orders = new ArrayList<>();
 
-    public ShowDriverOrderDTO() {
+    public ShowMyDeliveredOrders() {
     }
 
-    public ShowDriverOrderDTO(Driver entity) {
+    public ShowMyDeliveredOrders(Driver entity) {
         entity.getOrders().forEach(x -> orders.add(new ShowOrderInfoDTO(x)));
     }
-
-
 
 
     public List<ShowOrderInfoDTO> getOrders() {

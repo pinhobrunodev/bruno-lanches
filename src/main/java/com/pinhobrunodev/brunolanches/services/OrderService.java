@@ -46,6 +46,12 @@ public class OrderService {
         return repository.showAllPendingOrders().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
     }
 
+    // Can be Admin "All IN PROGRESS Orders" screen.
+    @Transactional(readOnly = true)
+    public List<ShowOrderInfoDTO> showAllInProgressOrders() {
+        return repository.showAllInProgressOrders().stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
+    }
+
     // Can be Admin "All Delivered Orders" screen.
     @Transactional(readOnly = true)
     public List<ShowOrderInfoDTO> showAllDeliveredOrders() {
@@ -69,6 +75,7 @@ public class OrderService {
     public Order copyDtoToEntity(Order entity, OrderDTO dto) {
         entity.setUser(userRepository.getById(dto.getUser_id()));
         entity.setStatus(OrderStatus.PENDING);
+        entity.setInProgress(Boolean.FALSE);
         for (ProductDTO x : dto.getItems()) {
             Product aux = productRepository.getById(x.getId());
             entity.getItems().add(aux);

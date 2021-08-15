@@ -34,7 +34,15 @@ public class Driver {
     @OneToMany(mappedBy = "driver")
     private Set<Order> orders = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "tb_driver_role", joinColumns = @JoinColumn(name = "driver_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
     public Driver() {
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
     public Boolean getInCurrentOrder() {

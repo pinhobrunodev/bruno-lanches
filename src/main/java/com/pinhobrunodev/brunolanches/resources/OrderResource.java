@@ -29,20 +29,27 @@ public class OrderResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<ShowOrderInfoDTO>> findAll(){
-        return  ResponseEntity.ok().body(service.findAll());
+    public ResponseEntity<List<ShowOrderInfoDTO>> findAll() {
+        return ResponseEntity.ok().body(service.findAll());
     }
 
     @GetMapping(value = "/{id}")
-    public  ResponseEntity<List<ShowUserOrderDTO>> showAllOrdersByUserId(@PathVariable Long id){
+    public ResponseEntity<List<ShowUserOrderDTO>> showAllOrdersByUserId(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.showAllOrdersByUserId(id));
     }
+
     @GetMapping(value = "/delivered")
-    public  ResponseEntity<List<ShowOrderInfoDTO>> showAllDeliveredOrders(){
+    public ResponseEntity<List<ShowOrderInfoDTO>> showAllDeliveredOrders() {
         return ResponseEntity.ok().body(service.showAllDeliveredOrders());
     }
+
+    @GetMapping(value = "/in-progress")
+    public ResponseEntity<List<ShowOrderInfoDTO>> showAllInProgressOrders() {
+        return ResponseEntity.ok().body(service.showAllInProgressOrders());
+    }
+
     @GetMapping(value = "/pending")
-    public  ResponseEntity<List<ShowOrderInfoDTO>> showAllPendingOrders(){
+    public ResponseEntity<List<ShowOrderInfoDTO>> showAllPendingOrders() {
         return ResponseEntity.ok().body(service.showAllPendingOrders());
     }
 }

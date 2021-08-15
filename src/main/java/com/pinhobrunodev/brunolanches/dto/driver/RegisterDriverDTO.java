@@ -1,10 +1,13 @@
 package com.pinhobrunodev.brunolanches.dto.driver;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.pinhobrunodev.brunolanches.dto.role.RoleDTO;
 import com.pinhobrunodev.brunolanches.entities.Driver;
 
 import javax.persistence.Column;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterDriverDTO {
 
@@ -16,6 +19,7 @@ public class RegisterDriverDTO {
     private String cpf;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate date;
+    private List<RoleDTO> roles = new ArrayList<>();
 
     public RegisterDriverDTO() {
     }
@@ -84,5 +88,9 @@ public class RegisterDriverDTO {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public List<RoleDTO> getRoles() {
+        return roles;
     }
 }
