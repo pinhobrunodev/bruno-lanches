@@ -31,6 +31,8 @@ public class UserService {
     private UserRepository repository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
 
     @Transactional
@@ -90,20 +92,20 @@ public class UserService {
 
     // Can be "User PENDING Orders - PENDING " screen.
     @Transactional(readOnly = true)
-    public List<ShowUserOrderDTO> showAllPendingOrdersByUserId(Long id) {
-        return repository.showAllPendingOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
+    public List<ShowOrderInfoDTO> showAllPendingOrdersByUserId(Long id) {
+        return orderRepository.showAllPendingOrdersByUserId(id).stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
     }
 
     // Can be "User FINISHED Orders" screen.
     @Transactional(readOnly = true)
-    public List<ShowUserOrderDTO> showAllDeliveredOrdersByUserId(Long id) {
-        return repository.showAllDeliveredOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
+    public List<ShowOrderInfoDTO> showAllDeliveredOrdersByUserId(Long id) {
+        return orderRepository.showAllDeliveredOrdersByUserId(id).stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
     }
 
     // Can be "User IN PROGRESS Orders" screen.
     @Transactional(readOnly = true)
-    public List<ShowUserOrderDTO> showAllInProgressOrdersByUserId(Long id) {
-        return repository.showAllInProgressOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
+    public List<ShowOrderInfoDTO> showAllInProgressOrdersByUserId(Long id) {
+        return orderRepository.showAllInProgressOrdersByUserId(id).stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
     }
 
 

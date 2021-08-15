@@ -79,14 +79,14 @@ public class DriverResource {
     }
 
     @GetMapping(value = "/my-delivered-orders/{id}")
-    public ResponseEntity<List<ShowMyDeliveredOrders>> showAllDeliveredOrdersByDriverId(@PathVariable Long id) {
+    public ResponseEntity<List<ShowOrderInfoDTO>> showAllDeliveredOrdersByDriverId(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.showAllDeliveredOrdersByDriverId(id));
     }
 
 
     // *
     @GetMapping(value = "/my-current-order/{id}")
-    public ResponseEntity<List<ShowDriverOrderDTO>> showAllInProgressOrdersByDriverId(@PathVariable Long id) {
+    public ResponseEntity<List<ShowOrderInfoDTO>> showAllInProgressOrdersByDriverId(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.showAllInProgressOrdersByDriverId(id));
     }
 }

@@ -34,7 +34,7 @@ public class OrderResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<List<ShowUserOrderDTO>> showAllOrdersByUserId(@PathVariable Long id) {
+    public ResponseEntity<List<ShowOrderInfoDTO>> showAllOrdersByUserId(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.showAllOrdersByUserId(id));
     }
 

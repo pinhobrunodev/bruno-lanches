@@ -60,8 +60,8 @@ public class OrderService {
 
     // Can be Admin "Filter All Orders (PENDING AND DELIVERED) by User ID" screen
     @Transactional(readOnly = true)
-    public List<ShowUserOrderDTO> showAllOrdersByUserId(Long id) {
-        return repository.showAllOrdersByUserId(id).stream().map(ShowUserOrderDTO::new).collect(Collectors.toList());
+    public List<ShowOrderInfoDTO> showAllOrdersByUserId(Long id) {
+        return repository.showAllOrdersByUserId(id).stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
     }
 
     // Can be Admin "All orders of all Users"

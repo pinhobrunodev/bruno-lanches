@@ -149,16 +149,16 @@ public class DriverService {
 
     // Can be used on "My Finished Orders" Driver screen
     @Transactional(readOnly = true)
-    public List<ShowMyDeliveredOrders> showAllDeliveredOrdersByDriverId(Long id) {
-        return orderRepository.showAllDeliveredOrdersByDriverId(id).stream().map(ShowMyDeliveredOrders::new).collect(Collectors.toList());
+    public List<ShowOrderInfoDTO> showAllDeliveredOrdersByDriverId(Long id) {
+        return orderRepository.showAllDeliveredOrdersByDriverId(id).stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
     }
 
 
     // *
     // Can be used on "My Current Orders (IN_PROGRESS) " Driver screen
     @Transactional(readOnly = true)
-    public List<ShowDriverOrderDTO> showAllInProgressOrdersByDriverId(Long id) {
-        return orderRepository.showAllInProgressOrdersByDriverId(id).stream().map(ShowDriverOrderDTO::new).collect(Collectors.toList());
+    public List<ShowOrderInfoDTO> showAllInProgressOrdersByDriverId(Long id) {
+        return orderRepository.showAllInProgressOrdersByDriverId(id).stream().map(ShowOrderInfoDTO::new).collect(Collectors.toList());
     }
     // Auxiliary methods
 
