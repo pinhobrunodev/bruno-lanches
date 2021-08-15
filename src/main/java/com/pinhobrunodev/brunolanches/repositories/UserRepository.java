@@ -13,14 +13,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 
 
-    @Query("SELECT  DISTINCT  obj FROM User obj JOIN FETCH  obj.orders o WHERE obj.id = :id AND o.status = 1")
-    List<User> showAllPendingOrdersByUserId(Long id);
-
-    @Query("SELECT  DISTINCT  obj FROM User obj JOIN FETCH  obj.orders o WHERE obj.id = :id AND o.status = 0")
-    List<User> showAllDeliveredOrdersByUserId(Long id);
-
-    @Query("SELECT  DISTINCT  obj FROM User obj JOIN FETCH  obj.orders o WHERE obj.id = :id AND o.status = 2")
-    List<User> showAllInProgressOrdersByUserId(Long id);
-
-
 }

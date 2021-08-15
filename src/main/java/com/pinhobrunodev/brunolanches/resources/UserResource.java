@@ -1,6 +1,7 @@
 package com.pinhobrunodev.brunolanches.resources;
 
 
+import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.user.*;
 import com.pinhobrunodev.brunolanches.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,17 +56,17 @@ public class UserResource {
     }
 
     @GetMapping(value = "/orders-pending/{id}")
-    public ResponseEntity<List<ShowUserOrderDTO>> showAllPendingOrdersByUserId(@PathVariable Long id) {
+    public ResponseEntity<List<ShowOrderInfoDTO>> showAllPendingOrdersByUserId(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.showAllPendingOrdersByUserId(id));
     }
 
     @GetMapping(value = "/orders-delivered/{id}")
-    public ResponseEntity<List<ShowUserOrderDTO>> showAllDeliveredOrdersByUserId(@PathVariable Long id) {
+    public ResponseEntity<List<ShowOrderInfoDTO>> showAllDeliveredOrdersByUserId(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.showAllDeliveredOrdersByUserId(id));
     }
 
     @GetMapping(value = "/orders-in-progress/{id}")
-    public ResponseEntity<List<ShowUserOrderDTO>> showAllInProgressOrdersByUserId(@PathVariable Long id) {
+    public ResponseEntity<List<ShowOrderInfoDTO>> showAllInProgressOrdersByUserId(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.showAllInProgressOrdersByUserId(id));
     }
 

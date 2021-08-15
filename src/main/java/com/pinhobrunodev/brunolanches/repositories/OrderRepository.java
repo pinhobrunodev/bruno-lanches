@@ -24,14 +24,23 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT DISTINCT obj FROM Order obj WHERE  obj.status = 2")
     List<Order> showAllInProgressOrders();
 
-    @Query("SELECT  DISTINCT  obj FROM User obj JOIN FETCH  obj.orders  WHERE obj.id = :id")
-    List<User> showAllOrdersByUserId(Long id);
+    @Query("SELECT obj FROM Order obj JOIN  FETCH  obj.user u WHERE  u.id = :id AND obj.status = 2")
+    List<Order> showAllInProgressOrdersByUserId(Long id);
 
+    @Query("SELECT obj FROM Order obj JOIN  FETCH  obj.user u WHERE  u.id = :id AND obj.status = 0")
+    List<Order> showAllDeliveredOrdersByUserId(Long id);
 
-    @Query("SELECT  DISTINCT  obj FROM Driver obj JOIN  FETCH  obj.orders o WHERE obj.id = :id AND o.status=0 ")
-    List<Driver> showAllDeliveredOrdersByDriverId(Long id);
+    @Query("SELECT obj FROM Order obj JOIN  FETCH  obj.user u WHERE  u.id = :id AND obj.status = 1")
+    List<Order> showAllPendingOrdersByUserId(Long id);
 
-    @Query("SELECT  DISTINCT  obj FROM Driver obj JOIN  FETCH  obj.orders o WHERE obj.id = :id AND o.status= 2 AND o.isInProgress=true")
-    List<Driver> showAllInProgressOrdersByDriverId(Long id);
+    //*
+    @Query("SELECT  obj  FROM Order obj JOIN FETCH  obj.user u WHERE  u.id = :id")
+    List<Order> showAllOrdersByUserId(Long id);
+
+    @Query("SELECT  obj FROM Order obj JOIN  FETCH  obj.driver d WHERE d.id = :id AND obj.status=0 ")
+    List<Order> showAllDeliveredOrdersByDriverId(Long id);
+
+    @Query("SELECT obj FROM Order obj JOIN  FETCH  obj.driver d WHERE d.id = :id AND obj.status= 2 AND obj.isInProgress=true")
+    List<Order> showAllInProgressOrdersByDriverId(Long id);
 
 }
