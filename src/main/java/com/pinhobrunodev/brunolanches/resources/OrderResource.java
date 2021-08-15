@@ -3,7 +3,6 @@ package com.pinhobrunodev.brunolanches.resources;
 
 import com.pinhobrunodev.brunolanches.dto.order.OrderDTO;
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.user.ShowUserOrderDTO;
 import com.pinhobrunodev.brunolanches.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

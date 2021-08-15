@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pinhobrunodev.brunolanches.dto.role.RoleDTO;
 import com.pinhobrunodev.brunolanches.entities.Driver;
 
-import javax.persistence.Column;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

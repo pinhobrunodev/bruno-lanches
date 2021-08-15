@@ -114,7 +114,7 @@ public class DriverService {
                 aux.setDriver(driverAux);
                 if (aux.getDriver().getInCurrentOrder() == Boolean.TRUE) {
                     aux.getDriver().getOrders().removeIf(x -> x.getDriver().getInCurrentOrder() == Boolean.TRUE);
-                    throw new UnprocessableActionException(aux.getDriver().getName() + " already has a PENDING Order.");
+                    throw new UnprocessableActionException(aux.getDriver().getName() + " is already making a delivery.");
                 }
             }
             aux.setDriver(driverAux);
