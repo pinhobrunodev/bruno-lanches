@@ -64,7 +64,7 @@ public class CategoryRepositoryTests {
     public void saveShouldPersist() {
         Category cat = Factory.createCategory();
         repository.save(cat);
-        Assertions.assertEquals(totalCategories+1, cat.getId());
+        Assertions.assertEquals(1, cat.getId());
     }
 
     @Test

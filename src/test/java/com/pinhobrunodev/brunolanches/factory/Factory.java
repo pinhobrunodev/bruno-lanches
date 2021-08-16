@@ -8,13 +8,13 @@ import com.pinhobrunodev.brunolanches.entities.Product;
 public class Factory {
 
     public static Category createCategory() {
-        return new Category(null, "Eletronico");
+        return new Category(1L, "Eletronico");
     }
 
     public static CategoryDTO createCategoryDTO() {
-        return new CategoryDTO(createCategory());
+        Category category = createCategory();
+        return new CategoryDTO(category);
     }
-
 
 
     public static Product createProduct() {
