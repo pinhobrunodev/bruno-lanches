@@ -8,6 +8,7 @@ import com.pinhobrunodev.brunolanches.entities.Order;
 import com.pinhobrunodev.brunolanches.entities.Product;
 import com.pinhobrunodev.brunolanches.entities.enums.OrderStatus;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -47,7 +48,8 @@ public class ShowOrderInfoDTO {
         for (ProductDTO dto : items) {
             sum += dto.getPrice();
         }
-        return sum;
+
+        return Math.round(sum * 100) / 100d;
     }
 
     public Double getDriverAmount() {
@@ -55,7 +57,7 @@ public class ShowOrderInfoDTO {
         double aux = 0;
         aux = getTotalToPay() * DRIVER_PERCENTAGE;
         driverAmount = getTotalToPay() - aux;
-        return driverAmount;
+        return Math.round(driverAmount * 100) / 100d;
     }
 
 
