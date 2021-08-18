@@ -113,13 +113,6 @@ public class ProductServiceTests {
         Mockito.verify(repository, Mockito.times(1)).findAll(pageable);
     }
 
-   /*
-    @Test
-    public void updateShouldReturnProductDTOWhenValidId() {
-        service.update(Factory.createProductDTO(), validId);
-        Mockito.verify(repository, Mockito.times(1)).getById(validId);
-    }
-    */
 
 
     @Test
