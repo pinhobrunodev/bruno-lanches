@@ -20,6 +20,7 @@ public class User {
     @Column(columnDefinition = "TEXT")
     private String phone;
     private String password;
+    @Column(unique = true)
     private String email;
     @Column(columnDefinition = "TEXT")
     private String cpf;

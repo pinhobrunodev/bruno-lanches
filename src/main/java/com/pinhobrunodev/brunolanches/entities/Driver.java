@@ -19,6 +19,7 @@ public class Driver {
     private String name;
     @Column(columnDefinition = "TEXT")
     private String phone;
+    @Column(unique = true)
     private String email;
     private String password;
     @Column(columnDefinition = "TEXT")
