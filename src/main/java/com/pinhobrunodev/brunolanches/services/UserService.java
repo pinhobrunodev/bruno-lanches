@@ -16,6 +16,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository repository;
@@ -114,7 +118,7 @@ public class UserService {
     public User copyDtoToEntity(User entity, UserRegisterDTO dto) {
         entity.setName(dto.getName());
         entity.setCpf(dto.getCpf());
-        entity.setPassword(dto.getPassword());
+        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity.setPhone(dto.getPhone());
         entity.setAddress(dto.getAddress());
         entity.setEmail(dto.getEmail());
@@ -134,7 +138,7 @@ public class UserService {
         User aux = repository.getById(id);
         aux.setName(dto.getName());
         aux.setCpf(dto.getCpf());
-        aux.setPassword(dto.getPassword());
+        aux.setPassword(passwordEncoder.encode(dto.getPassword()));
         aux.setPhone(dto.getPhone());
         aux.setAddress(dto.getAddress());
         aux.setEmail(dto.getEmail());
