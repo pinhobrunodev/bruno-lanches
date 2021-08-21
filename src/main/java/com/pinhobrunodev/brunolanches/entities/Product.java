@@ -34,7 +34,7 @@ public class Product {
         this.description = description;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "tb_product_category"
             , joinColumns = @JoinColumn(name = "product_id")

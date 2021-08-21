@@ -2,9 +2,14 @@ package com.pinhobrunodev.brunolanches.dto.category;
 
 import com.pinhobrunodev.brunolanches.entities.Category;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class CategoryDTO {
 
     private Long id;
+    @NotBlank(message = "Mandatory field")
+    @Size(min = 6,max = 20,message = "Name must be between 6 and 20 digits")
     private String name;
 
     public CategoryDTO() {

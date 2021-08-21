@@ -4,15 +4,25 @@ import com.pinhobrunodev.brunolanches.dto.category.CategoryDTO;
 import com.pinhobrunodev.brunolanches.entities.Category;
 import com.pinhobrunodev.brunolanches.entities.Product;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class ProductDTO {
     private Long id;
+    @NotBlank(message = "Mandatory field")
+    @Size(min = 6, max = 20, message = "Name must be between 6 and 20 digits")
     private String name;
+    @NotBlank(message = "Mandatory field")
+    @Size(min = 10, max = 60, message = "Description must be between 10 and 60 digits")
     private String description;
+    @NotBlank(message = "Mandatory field")
+    @Positive(message = "Price value must be higher tan 0")
     private Double price;
+    @NotBlank(message = "Mandatory field")
     private List<CategoryDTO> categories = new ArrayList<>();
 
     public ProductDTO() {

@@ -4,6 +4,7 @@ package com.pinhobrunodev.brunolanches.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -21,6 +22,7 @@ public class User {
     private String phone;
     private String password;
     @Column(unique = true)
+    @Email(message = "Please insert a valid email")
     private String email;
     @Column(columnDefinition = "TEXT")
     private String cpf;
@@ -37,7 +39,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Order> orders = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 

@@ -3,6 +3,7 @@ package com.pinhobrunodev.brunolanches.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class Driver {
     @Column(columnDefinition = "TEXT")
     private String phone;
     @Column(unique = true)
+    @Email(message = "Please insert a valid email")
     private String email;
     private String password;
     @Column(columnDefinition = "TEXT")
@@ -35,7 +37,7 @@ public class Driver {
     @OneToMany(mappedBy = "driver")
     private Set<Order> orders = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_driver_role", joinColumns = @JoinColumn(name = "driver_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
