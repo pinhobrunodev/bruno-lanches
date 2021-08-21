@@ -34,9 +34,9 @@ INSERT INTO tb_product_category(category_id,product_id) values (4,11);
 
 
 
-INSERT  INTO tb_role(authority) values ('ADMIN');
-INSERT  INTO tb_role(authority) values ('CLIENT');
-INSERT  INTO tb_role(authority) values ('DRIVER');
+INSERT  INTO tb_role(authority) values ('ROLE_ADMIN');
+INSERT  INTO tb_role(authority) values ('ROLE_CLIENT');
+INSERT  INTO tb_role(authority) values ('ROLE_DRIVER');
 
 INSERT INTO tb_user(name,phone,password,email,cpf,date,address,created_At ) values ('ADMIN','759813X5XXX','$2a$10$g5yuLWjfvAaNetPOf.3fa.4koCUajzFim20nSIhZqT2xzNO2gI13i','admin@admin.com','ADMINCPF','1999-11-21','ADMIN ADDRESS',NOW());
 
