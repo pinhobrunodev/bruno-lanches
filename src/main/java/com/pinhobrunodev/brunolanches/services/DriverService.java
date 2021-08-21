@@ -18,6 +18,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class DriverService {
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
 
     @Autowired
     private DriverRepository repository;
@@ -165,7 +170,7 @@ public class DriverService {
     public Driver copyDtoToEntity(Driver entity, RegisterDriverDTO dto) {
         entity.setName(dto.getName());
         entity.setCpf(dto.getCpf());
-        entity.setPassword(dto.getPassword());
+        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity.setPhone(dto.getPhone());
         entity.setEmail(dto.getEmail());
         entity.setDate(dto.getDate());
@@ -184,7 +189,7 @@ public class DriverService {
         Driver aux = repository.getById(id);
         aux.setName(dto.getName());
         aux.setCpf(dto.getCpf());
-        aux.setPassword(dto.getPassword());
+        aux.setPassword(passwordEncoder.encode(dto.getPassword()));
         aux.setPhone(dto.getPhone());
         aux.setEmail(dto.getEmail());
         aux.setDate(dto.getDate());
