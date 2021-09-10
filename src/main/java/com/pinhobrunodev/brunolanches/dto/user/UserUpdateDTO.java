@@ -17,17 +17,13 @@ public class UserUpdateDTO {
     private String name;
     @NotBlank(message = "Mandatory field")
     @Size(min = 15, max = 20, message = "Phone number must be like this: 55(71)4562-2234")
-    @Pattern(regexp = "^([0-9]{2})?(\\([0-9]{2})\\)([0-9]{3}|[0-9]{4})-[0-9]{4}$\n", message = "Phone number must be like this: 55(71)4562-2234")
     private String phone;
     @NotBlank(message = "Mandatory field")
-    @Pattern(regexp = "^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$\n", message = "Please,put a valid email")
     private String email;
     @NotBlank(message = "Mandatory field")
     @Size(min = 4, max = 15, message = "It must contain at least 4 characters and no more than 15 characters")
-    @Pattern(regexp = "^[a-zA-Z]\\w{3,14}$\n", message = "The password's first character must be a letter  and no other characters than letters, numbers and the underscore may be used")
     private String password;
     @NotBlank(message = "Mandatory field")
-    @Pattern(regexp = "(^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x2D\\d{2}$)\n", message = "Invalid CPF")
     private String cpf;
     @NotBlank(message = "Mandatory field")
     @PastOrPresent(message = "Date must be past or present")

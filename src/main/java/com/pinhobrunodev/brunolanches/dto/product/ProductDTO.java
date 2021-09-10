@@ -4,9 +4,7 @@ import com.pinhobrunodev.brunolanches.dto.category.CategoryDTO;
 import com.pinhobrunodev.brunolanches.entities.Category;
 import com.pinhobrunodev.brunolanches.entities.Product;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -19,10 +17,11 @@ public class ProductDTO {
     @NotBlank(message = "Mandatory field")
     @Size(min = 10, max = 60, message = "Description must be between 10 and 60 digits")
     private String description;
-    @NotBlank(message = "Mandatory field")
-    @Positive(message = "Price value must be higher tan 0")
+    @NotNull(message = "Price cannot be null")
+    @Positive(message = "Price value must be higher than 0")
+    @DecimalMin(value ="0.00",message = " Input the price of the product like that Ex: 9.99")
+    @Digits(integer = 6, fraction = 2,message = " Higher than limit")
     private Double price;
-    @NotBlank(message = "Mandatory field")
     private List<CategoryDTO> categories = new ArrayList<>();
 
     public ProductDTO() {

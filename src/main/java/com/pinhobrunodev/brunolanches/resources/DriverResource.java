@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class DriverResource {
     private DriverService service;
 
     @PostMapping(value = "/save")
-    public ResponseEntity<Void> save(@RequestBody RegisterDriverDTO dto) {
+    public ResponseEntity<Void> save(@Valid @RequestBody RegisterDriverDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         service.save(dto);
         return ResponseEntity.created(uri).build();
@@ -42,7 +43,7 @@ public class DriverResource {
     }
 
     @PutMapping(value = "/update/{id}")
-    public ResponseEntity<ShowDriverInfoDTO> update(@PathVariable Long id, @RequestBody UpdateDriverDTO dto) {
+    public ResponseEntity<ShowDriverInfoDTO> update(@Valid  @PathVariable Long id, @RequestBody UpdateDriverDTO dto) {
         return ResponseEntity.ok().body(service.update(dto, id));
     }
 

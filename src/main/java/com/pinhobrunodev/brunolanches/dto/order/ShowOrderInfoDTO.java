@@ -2,18 +2,13 @@ package com.pinhobrunodev.brunolanches.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pinhobrunodev.brunolanches.dto.driver.ShowDriverInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.product.ProductDTO;
 import com.pinhobrunodev.brunolanches.entities.Order;
-import com.pinhobrunodev.brunolanches.entities.Product;
 import com.pinhobrunodev.brunolanches.entities.enums.OrderStatus;
 
-import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class ShowOrderInfoDTO {
 
