@@ -46,8 +46,8 @@ public class UserResource {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
-    @GetMapping(value = "/by-name/{name}")
-    public ResponseEntity<ShowUserInfoDTO> findByName(@PathVariable String name) {
+    @GetMapping(value = "/by-name")
+    public ResponseEntity<ShowUserInfoDTO> findByName(@RequestParam String name) {
         return ResponseEntity.ok().body(service.findByName(name));
     }
 

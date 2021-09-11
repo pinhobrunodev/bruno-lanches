@@ -58,8 +58,8 @@ public class DriverResource {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
-    @GetMapping(value = "/by-name/{name}")
-    public ResponseEntity<ShowDriverInfoDTO> findByName(@PathVariable String name) {
+    @GetMapping(value = "/by-name")
+    public ResponseEntity<ShowDriverInfoDTO> findByName(@RequestParam String name) {
         return ResponseEntity.ok().body(service.findByName(name));
     }
 

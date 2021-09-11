@@ -43,8 +43,8 @@ public class CategoryResource {
     }
 
 
-    @GetMapping(value = "/find-by-name/{name}")
-    public ResponseEntity<CategoryDTO> findByName(@PathVariable String name) {
+    @GetMapping(value = "/find-by-name")
+    public ResponseEntity<CategoryDTO> findByName(@RequestParam String name) {
         return ResponseEntity.ok().body(service.findByName(name));
     }
 

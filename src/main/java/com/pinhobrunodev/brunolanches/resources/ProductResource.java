@@ -46,8 +46,8 @@ public class ProductResource {
     }
 
 
-    @GetMapping(value = "/find-by-name/{name}")
-    public ResponseEntity<ProductDTO> findByName(@PathVariable String name) {
+    @GetMapping(value = "/find-by-name")
+    public ResponseEntity<ProductDTO> findByName(@RequestParam String name) {
         return ResponseEntity.ok().body(service.findByName(name));
     }
 
