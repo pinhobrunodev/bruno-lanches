@@ -1,7 +1,5 @@
 package com.pinhobrunodev.brunolanches.entities;
 
-import org.springframework.web.bind.annotation.GetMapping;
-
 import javax.persistence.*;
 
 @Entity

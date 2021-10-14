@@ -1,7 +1,6 @@
 package com.pinhobrunodev.brunolanches.services;
 
 
-import com.pinhobrunodev.brunolanches.dto.category.CategoryDTO;
 import com.pinhobrunodev.brunolanches.dto.product.ProductDTO;
 import com.pinhobrunodev.brunolanches.entities.Category;
 import com.pinhobrunodev.brunolanches.entities.Product;
@@ -10,7 +9,6 @@ import com.pinhobrunodev.brunolanches.repositories.CategoryRepository;
 import com.pinhobrunodev.brunolanches.repositories.ProductRepository;
 import com.pinhobrunodev.brunolanches.services.exceptions.DatabaseException;
 import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundException;
-import org.h2.engine.Database;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

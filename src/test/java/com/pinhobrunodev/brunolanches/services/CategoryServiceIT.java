@@ -3,7 +3,6 @@ package com.pinhobrunodev.brunolanches.services;
 import com.pinhobrunodev.brunolanches.dto.category.CategoryDTO;
 import com.pinhobrunodev.brunolanches.entities.Category;
 import com.pinhobrunodev.brunolanches.repositories.CategoryRepository;
-import com.pinhobrunodev.brunolanches.services.exceptions.DatabaseException;
 import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -2,7 +2,10 @@ package com.pinhobrunodev.brunolanches.services;
 
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.role.RoleDTO;
-import com.pinhobrunodev.brunolanches.dto.user.*;
+import com.pinhobrunodev.brunolanches.dto.user.ShowUserInfoDTO;
+import com.pinhobrunodev.brunolanches.dto.user.UserInsertDTO;
+import com.pinhobrunodev.brunolanches.dto.user.UserPagedSearchDTO;
+import com.pinhobrunodev.brunolanches.dto.user.UserUpdateDTO;
 import com.pinhobrunodev.brunolanches.entities.Role;
 import com.pinhobrunodev.brunolanches.entities.User;
 import com.pinhobrunodev.brunolanches.repositories.OrderRepository;
@@ -21,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +42,7 @@ public class UserService {
 
 
     @Transactional
-    public void save(UserRegisterDTO dto) {
+    public void save(UserInsertDTO dto) {
         User entity = new User();
         repository.save(copyDtoToEntity(entity, dto));
     }
@@ -115,7 +117,7 @@ public class UserService {
 
     // Auxiliary methods
 
-    public User copyDtoToEntity(User entity, UserRegisterDTO dto) {
+    public User copyDtoToEntity(User entity, UserInsertDTO dto) {
         entity.setName(dto.getName());
         entity.setCpf(dto.getCpf());
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -138,7 +140,6 @@ public class UserService {
         User aux = repository.getById(id);
         aux.setName(dto.getName());
         aux.setCpf(dto.getCpf());
-        aux.setPassword(passwordEncoder.encode(dto.getPassword()));
         aux.setPhone(dto.getPhone());
         aux.setAddress(dto.getAddress());
         aux.setEmail(dto.getEmail());
