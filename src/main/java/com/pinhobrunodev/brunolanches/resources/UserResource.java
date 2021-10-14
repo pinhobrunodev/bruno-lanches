@@ -2,7 +2,10 @@ package com.pinhobrunodev.brunolanches.resources;
 
 
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.user.*;
+import com.pinhobrunodev.brunolanches.dto.user.ShowUserInfoDTO;
+import com.pinhobrunodev.brunolanches.dto.user.UserInsertDTO;
+import com.pinhobrunodev.brunolanches.dto.user.UserPagedSearchDTO;
+import com.pinhobrunodev.brunolanches.dto.user.UserUpdateDTO;
 import com.pinhobrunodev.brunolanches.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,14 +27,14 @@ public class UserResource {
 
 
     @PostMapping(value = "/save")
-    public ResponseEntity<Void> save( @Valid @RequestBody UserRegisterDTO dto) {
+    public ResponseEntity<Void> save( @Valid @RequestBody UserInsertDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         service.save(dto);
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping(value = "/update/{id}")
-    public ResponseEntity<ShowUserInfoDTO> update(@Valid @PathVariable Long id, @RequestBody UserUpdateDTO dto) {
+    public ResponseEntity<ShowUserInfoDTO> update( @PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto) {
         return ResponseEntity.ok().body(service.update(dto, id));
     }
 

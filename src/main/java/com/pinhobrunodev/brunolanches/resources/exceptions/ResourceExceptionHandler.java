@@ -4,7 +4,6 @@ import com.pinhobrunodev.brunolanches.services.exceptions.DatabaseException;
 import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundException;
 import com.pinhobrunodev.brunolanches.services.exceptions.UnprocessableActionException;
 import com.pinhobrunodev.brunolanches.services.exceptions.ValidatingNumberOfCategoriesException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

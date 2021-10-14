@@ -1,8 +1,6 @@
 package com.pinhobrunodev.brunolanches.repositories;
 
-import com.pinhobrunodev.brunolanches.entities.Driver;
 import com.pinhobrunodev.brunolanches.entities.Order;
-import com.pinhobrunodev.brunolanches.entities.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

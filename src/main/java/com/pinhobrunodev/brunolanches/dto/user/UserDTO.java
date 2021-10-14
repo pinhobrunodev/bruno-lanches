@@ -1,16 +1,17 @@
 package com.pinhobrunodev.brunolanches.dto.user;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pinhobrunodev.brunolanches.dto.role.RoleDTO;
-import com.pinhobrunodev.brunolanches.entities.User;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRegisterDTO {
+public class UserDTO {
+
     private Long id;
     @NotBlank(message = "Mandatory field")
     @Size(min = 6, max = 20, message = "Name must be between 6 and 20 digits")
@@ -21,9 +22,6 @@ public class UserRegisterDTO {
     @NotBlank(message = "Mandatory field")
     private String email;
     @NotBlank(message = "Mandatory field")
-    @Size(min = 4, max = 15, message = "It must contain at least 4 characters and no more than 15 characters")
-    private String password;
-    @NotBlank(message = "Mandatory field")
     private String cpf;
     @NotNull(message = "Mandatory field")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
@@ -33,20 +31,9 @@ public class UserRegisterDTO {
     private String address;
     private final List<RoleDTO> roles = new ArrayList<>();
 
-    public UserRegisterDTO() {
 
-    }
+    public UserDTO() {
 
-    public UserRegisterDTO(User entity) {
-        id = entity.getId();
-        name = entity.getName();
-        phone = entity.getPhone();
-        email = entity.getEmail();
-        cpf = entity.getCpf();
-        date = entity.getDate();
-        address = entity.getAddress();
-        password = entity.getPassword();
-        entity.getRoles().forEach(x -> roles.add(new RoleDTO(x)));
     }
 
     public Long getId() {
@@ -63,14 +50,6 @@ public class UserRegisterDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getPhone() {

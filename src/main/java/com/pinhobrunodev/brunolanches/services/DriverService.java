@@ -1,7 +1,7 @@
 package com.pinhobrunodev.brunolanches.services;
 
 import com.pinhobrunodev.brunolanches.dto.driver.DriverPagedSearchDTO;
-import com.pinhobrunodev.brunolanches.dto.driver.RegisterDriverDTO;
+import com.pinhobrunodev.brunolanches.dto.driver.InsertDriverDTO;
 import com.pinhobrunodev.brunolanches.dto.driver.ShowDriverInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.driver.UpdateDriverDTO;
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
@@ -45,7 +45,7 @@ public class DriverService {
 	private RoleRepository roleRepository;
 
 	@Transactional
-	public void save(RegisterDriverDTO dto) {
+	public void save(InsertDriverDTO dto) {
 		Driver entity = new Driver();
 		repository.save(copyDtoToEntity(entity, dto));
 	}
@@ -173,7 +173,7 @@ public class DriverService {
 	}
 	// Auxiliary methods
 
-	public Driver copyDtoToEntity(Driver entity, RegisterDriverDTO dto) {
+	public Driver copyDtoToEntity(Driver entity, InsertDriverDTO dto) {
 		entity.setName(dto.getName());
 		entity.setCpf(dto.getCpf());
 		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -195,7 +195,6 @@ public class DriverService {
 		Driver aux = repository.getById(id);
 		aux.setName(dto.getName());
 		aux.setCpf(dto.getCpf());
-		aux.setPassword(passwordEncoder.encode(dto.getPassword()));
 		aux.setPhone(dto.getPhone());
 		aux.setEmail(dto.getEmail());
 		aux.setDate(dto.getDate());

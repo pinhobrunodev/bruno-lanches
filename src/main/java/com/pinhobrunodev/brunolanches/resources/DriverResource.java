@@ -1,7 +1,10 @@
 package com.pinhobrunodev.brunolanches.resources;
 
 
-import com.pinhobrunodev.brunolanches.dto.driver.*;
+import com.pinhobrunodev.brunolanches.dto.driver.DriverPagedSearchDTO;
+import com.pinhobrunodev.brunolanches.dto.driver.InsertDriverDTO;
+import com.pinhobrunodev.brunolanches.dto.driver.ShowDriverInfoDTO;
+import com.pinhobrunodev.brunolanches.dto.driver.UpdateDriverDTO;
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
 import com.pinhobrunodev.brunolanches.services.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,7 @@ public class DriverResource {
     private DriverService service;
 
     @PostMapping(value = "/save")
-    public ResponseEntity<Void> save(@Valid @RequestBody RegisterDriverDTO dto) {
+    public ResponseEntity<Void> save(@Valid @RequestBody InsertDriverDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         service.save(dto);
         return ResponseEntity.created(uri).build();
@@ -43,7 +46,7 @@ public class DriverResource {
     }
 
     @PutMapping(value = "/update/{id}")
-    public ResponseEntity<ShowDriverInfoDTO> update(@Valid  @PathVariable Long id, @RequestBody UpdateDriverDTO dto) {
+    public ResponseEntity<ShowDriverInfoDTO> update(  @PathVariable Long id, @Valid @RequestBody UpdateDriverDTO dto) {
         return ResponseEntity.ok().body(service.update(dto, id));
     }
 
