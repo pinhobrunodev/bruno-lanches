@@ -121,7 +121,6 @@ public class DriverService {
 				// if the driver took the order but is in a already order , we remove that order that was taken by him
 				if (aux.getDriver().getInCurrentOrder() == Boolean.TRUE) {
 					aux.getDriver().getOrders().remove(driverAux);
-					//aux.getDriver().getOrders().removeIf(x -> x.getDriver().getInCurrentOrder() == Boolean.TRUE);
 					throw new UnprocessableActionException(
 							aux.getDriver().getName() + " is already making a delivery.");
 				}
@@ -144,6 +143,7 @@ public class DriverService {
 			if (driverAux == null) {
 				throw new ResourceNotFoundException("Entity not found");
 			}
+			// if some ''id'' of the driver orders list is equals to the order id that will be set delivered 
 			if (null != driverAux.getOrders().stream().filter(x -> Objects.equals(x.getId(), aux.getId())).findFirst()
 					.orElse(null)) {
 				aux.setStatus(OrderStatus.DELIVERED);
