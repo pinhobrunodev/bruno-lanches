@@ -39,10 +39,10 @@ public class Product {
             name = "tb_product_category"
             , joinColumns = @JoinColumn(name = "product_id")
             , inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories = new HashSet<>();
+    private final Set<Category> categories = new HashSet<>();
 
     @ManyToMany(mappedBy = "items")
-    private Set<Order> orders = new HashSet<>();
+    private final Set<Order> orders = new HashSet<>();
 
     public Product(Long id, String name, String description, Double price, Instant createdAt, Instant updatedAt) {
         this.id = id;

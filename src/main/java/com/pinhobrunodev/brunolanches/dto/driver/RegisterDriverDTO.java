@@ -28,7 +28,7 @@ public class RegisterDriverDTO {
     @NotNull(message = "Mandatory field")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate date;
-    private List<RoleDTO> roles = new ArrayList<>();
+    private final List<RoleDTO> roles = new ArrayList<>();
 
     public RegisterDriverDTO() {
     }

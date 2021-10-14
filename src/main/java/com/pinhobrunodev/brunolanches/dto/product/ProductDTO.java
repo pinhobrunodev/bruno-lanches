@@ -22,7 +22,7 @@ public class ProductDTO {
     @DecimalMin(value ="0.00",message = " Input the price of the product like that Ex: 9.99")
     @Digits(integer = 6, fraction = 2,message = " Higher than limit")
     private Double price;
-    private List<CategoryDTO> categories = new ArrayList<>();
+    private final List<CategoryDTO> categories = new ArrayList<>();
 
     public ProductDTO() {
 

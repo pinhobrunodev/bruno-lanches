@@ -31,7 +31,7 @@ public class UserRegisterDTO {
     @NotBlank(message = "Mandatory field")
     @Size(min = 6,max = 60,message = "Address must be between 6 and 60 digits")
     private String address;
-    private List<RoleDTO> roles = new ArrayList<>();
+    private final List<RoleDTO> roles = new ArrayList<>();
 
     public UserRegisterDTO() {
 

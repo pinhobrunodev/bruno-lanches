@@ -8,7 +8,7 @@ import java.util.List;
 public class OrderDTO {
     private Long id;
     private Long user_id;
-    private List<ProductDTO> items = new ArrayList<>();
+    private final List<ProductDTO> items = new ArrayList<>();
 
     public OrderDTO() {
 

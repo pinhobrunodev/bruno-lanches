@@ -22,7 +22,7 @@ public class ShowOrderInfoDTO {
     private String client_name;
     private String client_phone;
     private String client_address;
-    private List<ProductDTO> items = new ArrayList<>();
+    private final List<ProductDTO> items = new ArrayList<>();
 
     public ShowOrderInfoDTO() {
 
