@@ -120,7 +120,8 @@ public class DriverService {
 				aux.setDriver(driverAux);
 				// if the driver took the order but is in a already order , we remove that order that was taken by him
 				if (aux.getDriver().getInCurrentOrder() == Boolean.TRUE) {
-					aux.getDriver().getOrders().removeIf(x -> x.getDriver().getInCurrentOrder() == Boolean.TRUE);
+					aux.getDriver().getOrders().remove(driverAux);
+					//aux.getDriver().getOrders().removeIf(x -> x.getDriver().getInCurrentOrder() == Boolean.TRUE);
 					throw new UnprocessableActionException(
 							aux.getDriver().getName() + " is already making a delivery.");
 				}
