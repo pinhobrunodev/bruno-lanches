@@ -1,6 +1,5 @@
 package com.pinhobrunodev.brunolanches.services;
 
-import ch.qos.logback.core.recovery.ResilientOutputStreamBase;
 import com.pinhobrunodev.brunolanches.dto.category.CategoryDTO;
 import com.pinhobrunodev.brunolanches.entities.Category;
 import com.pinhobrunodev.brunolanches.repositories.CategoryRepository;
@@ -12,10 +11,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +32,9 @@ public class CategoryService {
     @Transactional
     public CategoryDTO update(Long id, CategoryDTO dto) {
         try {
-            return new CategoryDTO(toUpdate(dto, id));
+            Category entity = toUpdate(dto,id);
+            repository.save(entity);
+            return new CategoryDTO(entity);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("ID not found : " + id);
         }
