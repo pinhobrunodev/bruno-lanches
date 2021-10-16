@@ -69,10 +69,10 @@ public class ProductServiceTests {
 
         Mockito.when(repository.findAll((Pageable) ArgumentMatchers.any())).thenReturn(page);
 
-        Mockito.when(repository.getById(validId)).thenReturn(product);
-        Mockito.when(repository.getById(invalidId)).thenThrow(EntityNotFoundException.class);
-        Mockito.when(categoryRepository.getById(validId)).thenReturn(category);
-        Mockito.when(categoryRepository.getById(invalidId)).thenThrow(EntityNotFoundException.class);
+        Mockito.when(repository.getOne(validId)).thenReturn(product);
+        Mockito.when(repository.getOne(invalidId)).thenThrow(EntityNotFoundException.class);
+        Mockito.when(categoryRepository.getOne(validId)).thenReturn(category);
+        Mockito.when(categoryRepository.getOne(invalidId)).thenThrow(EntityNotFoundException.class);
 
         Mockito.doNothing().when(repository).deleteById(validId);
         Mockito.doThrow(EmptyResultDataAccessException.class).when(repository).deleteById(invalidId);
@@ -115,7 +115,7 @@ public class ProductServiceTests {
     @Test
     public void updateShouldReturnProductDTOWhenValidId() {
         service.update(Factory.createProductDTO(), validId);
-        Mockito.verify(repository, Mockito.times(1)).getById(validId);
+        Mockito.verify(repository, Mockito.times(1)).getOne(validId);
     }
     */
 

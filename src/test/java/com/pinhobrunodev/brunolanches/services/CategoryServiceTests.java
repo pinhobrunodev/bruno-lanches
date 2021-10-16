@@ -49,8 +49,8 @@ public class CategoryServiceTests {
         category = Factory.createCategory();
 
 
-        Mockito.when(repository.getById(existingId)).thenReturn(category);
-        Mockito.when(repository.getById(nonExistingId)).thenThrow(EntityNotFoundException.class);
+        Mockito.when(repository.getOne(existingId)).thenReturn(category);
+        Mockito.when(repository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
 
         Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(category));
         Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
@@ -95,7 +95,7 @@ public class CategoryServiceTests {
     @Test
     public void updateShouldReturnACategoryDTOWhenValidId() {
         service.update(existingId, Factory.createCategoryDTO());
-        Mockito.verify(repository, times(1)).getById(existingId);
+        Mockito.verify(repository, times(1)).getOne(existingId);
     }
 
     @Test
@@ -103,7 +103,7 @@ public class CategoryServiceTests {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
             service.update(nonExistingId, Factory.createCategoryDTO());
         });
-        Mockito.verify(repository, times(1)).getById(nonExistingId);
+        Mockito.verify(repository, times(1)).getOne(nonExistingId);
 
     }
 
