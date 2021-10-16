@@ -182,10 +182,10 @@ public class DriverService {
 		entity.setDate(dto.getDate());
 		for (RoleDTO roleDTO : dto.getRoles()) {
 			Role aux = roleRepository.getOne(roleDTO.getId());
-			if (aux.getId() == 3) {
+			if (aux.getId() == 2) {
 				entity.getRoles().add(aux);
 			} else {
-				throw new UnprocessableActionException("Error");
+				throw new UnprocessableActionException("Driver can't be role CLIENT");
 			}
 		}
 		return entity;

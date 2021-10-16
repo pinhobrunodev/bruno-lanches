@@ -127,10 +127,10 @@ public class UserService {
         entity.setDate(dto.getDate());
         for (RoleDTO roleDTO : dto.getRoles()) {
             Role aux = roleRepository.getOne(roleDTO.getId());
-            if (aux.getId() == 2) {
+            if (aux.getId() == 1) {
                 entity.getRoles().add(aux);
             } else {
-                throw new UnprocessableActionException("Error");
+                throw new UnprocessableActionException("Client can't be role DRIVER");
             }
         }
         return entity;
