@@ -106,10 +106,10 @@ public class CategoryResourceIT {
 
     @Test
     void findByNameShouldReturnCategoryDTOAndHttpStatus200WhenNameExists() throws Exception {
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/categories/find-by-name/{name}", validName).contentType(MediaType.APPLICATION_JSON));
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/categories/find-by-name?name={name}", validName).contentType(MediaType.APPLICATION_JSON));
         resultActions.andExpect(MockMvcResultMatchers.status().isOk());
         resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1L));
-        resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.name").value("PASTA"));
+        resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.name").value(validName));
     }
 
     @Test

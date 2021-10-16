@@ -17,13 +17,13 @@ public class Driver {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(columnDefinition = "TEXT")
+    @Column(unique = true)
     private String phone;
     @Column(unique = true)
     @Email(message = "Please insert a valid email")
     private String email;
     private String password;
-    @Column(columnDefinition = "TEXT")
+    @Column(unique = true)
     private String cpf;
     private Boolean isInCurrentOrder;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")

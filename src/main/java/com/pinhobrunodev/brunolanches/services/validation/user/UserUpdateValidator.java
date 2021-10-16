@@ -42,10 +42,10 @@ public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid,
         if (user != null && userId != user.getId()) {
             list.add(new FieldMessage("email", "Email already exists"));
         }
-        if (user1 != null && userId != user.getId()) {
+        if (user1 != null && userId != user1.getId()) {
             list.add(new FieldMessage("cpf", "CPF already exists"));
         }
-        if (user2 != null && userId != user.getId()) {
+        if (user2 != null && userId != user2.getId()) {
             list.add(new FieldMessage("phone", "Phone already exists"));
         }
 

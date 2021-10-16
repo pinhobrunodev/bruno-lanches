@@ -18,13 +18,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(columnDefinition = "TEXT",unique = true)
+    @Column(unique = true)
     private String phone;
     private String password;
     @Column(unique = true)
     @Email(message = "Please insert a valid email")
     private String email;
-    @Column(columnDefinition = "TEXT",unique = true)
+    @Column(unique = true)
     private String cpf;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate date;

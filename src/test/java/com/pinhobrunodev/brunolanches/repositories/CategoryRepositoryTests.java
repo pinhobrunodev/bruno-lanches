@@ -30,7 +30,7 @@ public class CategoryRepositoryTests {
         existingId = 1L;
         totalCategories = 3L;
         nonExistingId = 999L;
-        existingName = "Pizza";
+        existingName = "PASTA";
         nonExistingName = "Bob";
     }
 

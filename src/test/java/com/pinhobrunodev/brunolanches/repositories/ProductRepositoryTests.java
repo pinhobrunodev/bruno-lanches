@@ -29,9 +29,9 @@ public class ProductRepositoryTests {
     public void setUp() throws Exception {
         validId = 1L;
         invalidId = 999L;
-        validName = "Pepsi";
+        validName = "REDBULL";
         invalidName = "invalidName";
-        quantity = 2L;
+        quantity = 11L;
     }
 
 
@@ -72,7 +72,7 @@ public class ProductRepositoryTests {
     @Test
     public void findByNameShouldReturnProductObjectWhenValidName() {
         Product aux = repository.findByName(validName);
-        Assertions.assertEquals("Pepsi", aux.getName());
+        Assertions.assertEquals(validName, aux.getName());
     }
 
     @Test

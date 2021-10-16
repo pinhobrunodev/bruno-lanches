@@ -53,7 +53,7 @@ public class CategoryResourceTests {
         invalidId = 2L;
         dependentId = 3L;
         categoryDTO = Factory.createCategoryDTO();
-        validName = "validName";
+        validName = "PASTA";
         invalidName = "invalidName";
         list = List.of(categoryDTO);
 
@@ -83,7 +83,7 @@ public class CategoryResourceTests {
 
     @Test
     public void findByNameShouldReturnCategoryDTOWhenValidName() throws Exception {
-        ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/categories/find-by-name/{name}", validName).accept(MediaType.APPLICATION_JSON));
+        ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/categories/find-by-name?name={name}", validName).accept(MediaType.APPLICATION_JSON));
         result.andExpect(MockMvcResultMatchers.status().isOk());
         result.andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
         result.andExpect(MockMvcResultMatchers.jsonPath("$.name").exists());
