@@ -70,11 +70,11 @@ public class OrderService {
     // Auxiliary methods
 
     public Order copyDtoToEntity(Order entity, OrderDTO dto) {
-        entity.setUser(userRepository.getById(dto.getUser_id()));
+        entity.setUser(userRepository.getOne(dto.getUser_id()));
         entity.setStatus(OrderStatus.PENDING);
         entity.setInProgress(Boolean.FALSE);
         for (ProductDTO x : dto.getItems()) {
-            Product aux = productRepository.getById(x.getId());
+            Product aux = productRepository.getOne(x.getId());
             entity.getItems().add(aux);
         }
         return entity;

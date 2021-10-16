@@ -78,7 +78,7 @@ public class CategoryService {
     }
 
     public Category toUpdate(CategoryDTO dto, Long id) {
-        Category aux = repository.getById(id);
+        Category aux = repository.getOne(id);
         copyDtoToEntity(dto, aux);
         return copyDtoToEntity(dto, aux);
     }

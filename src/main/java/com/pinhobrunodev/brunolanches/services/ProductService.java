@@ -92,14 +92,14 @@ public class ProductService {
 		entity.setPrice(dto.getPrice());
 		entity.getCategories().clear();
 		for (CategoryDTO categoryDTO : dto.getCategories()) {
-			Category aux = categoryRepository.getById(categoryDTO.getId());
+			Category aux = categoryRepository.getOne(categoryDTO.getId());
 			entity.getCategories().add(aux);
 		}
 		return entity;
 	}
 
 	public Product updateProduct(Long id, ProductDTO dto) {
-		Product aux = repository.getById(id);
+		Product aux = repository.getOne(id);
 		return dtoToEntity(dto, aux);
 	}
 

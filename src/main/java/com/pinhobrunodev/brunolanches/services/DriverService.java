@@ -111,8 +111,8 @@ public class DriverService {
 	public void takePendingOrder(Long id, Long driver_id) {
 
 		try {
-			Order aux = orderRepository.getById(id);
-			Driver driverAux = repository.getById(driver_id);
+			Order aux = orderRepository.getOne(id);
+			Driver driverAux = repository.getOne(driver_id);
 			if (aux.getDriver() != null) {
 				throw new UnprocessableActionException(aux.getDriver().getName() + " already took that Order.");
 			}
@@ -138,7 +138,7 @@ public class DriverService {
 	@Transactional
 	public void setDelivered(Long id) {
 		try {
-			Order aux = orderRepository.getById(id);
+			Order aux = orderRepository.getOne(id);
 			Driver driverAux = aux.getDriver();
 			if (driverAux == null) {
 				throw new ResourceNotFoundException("Entity not found");
@@ -181,7 +181,7 @@ public class DriverService {
 		entity.setEmail(dto.getEmail());
 		entity.setDate(dto.getDate());
 		for (RoleDTO roleDTO : dto.getRoles()) {
-			Role aux = roleRepository.getById(roleDTO.getId());
+			Role aux = roleRepository.getOne(roleDTO.getId());
 			if (aux.getId() == 3) {
 				entity.getRoles().add(aux);
 			} else {
@@ -192,7 +192,7 @@ public class DriverService {
 	}
 
 	public Driver toUpdate(Long id, UpdateDriverDTO dto) {
-		Driver aux = repository.getById(id);
+		Driver aux = repository.getOne(id);
 		aux.setName(dto.getName());
 		aux.setCpf(dto.getCpf());
 		aux.setPhone(dto.getPhone());

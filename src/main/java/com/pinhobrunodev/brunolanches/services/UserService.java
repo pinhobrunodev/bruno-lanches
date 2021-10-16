@@ -126,7 +126,7 @@ public class UserService {
         entity.setEmail(dto.getEmail());
         entity.setDate(dto.getDate());
         for (RoleDTO roleDTO : dto.getRoles()) {
-            Role aux = roleRepository.getById(roleDTO.getId());
+            Role aux = roleRepository.getOne(roleDTO.getId());
             if (aux.getId() == 2) {
                 entity.getRoles().add(aux);
             } else {
@@ -137,7 +137,7 @@ public class UserService {
     }
 
     public User toUpdate(Long id, UserUpdateDTO dto) {
-        User aux = repository.getById(id);
+        User aux = repository.getOne(id);
         aux.setName(dto.getName());
         aux.setCpf(dto.getCpf());
         aux.setPhone(dto.getPhone());
