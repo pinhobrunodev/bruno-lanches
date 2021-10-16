@@ -2,4 +2,9 @@
 
 Versão atualizada da  -> https://github.com/pinhobrunodev/brunolanches-webservice
 
-Em construção...
+<br>
+
+
+## SWAGGER URL : https://brunolanches-webservice.herokuapp.com/swagger-ui.html
+ 
+# HEROKU URL : https://brunolanches-webservice.herokuapp.com
