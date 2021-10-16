@@ -12,10 +12,8 @@ import java.util.Set;
 public class ProductDTO {
     private Long id;
     @NotBlank(message = "Mandatory field")
-    @Size(min = 6, max = 20, message = "Name must be between 6 and 20 digits")
     private String name;
     @NotBlank(message = "Mandatory field")
-    @Size(min = 10, max = 60, message = "Description must be between 10 and 60 digits")
     private String description;
     @NotNull(message = "Price cannot be null")
     @Positive(message = "Price value must be higher than 0")
