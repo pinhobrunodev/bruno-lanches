@@ -1,7 +1,5 @@
 package com.pinhobrunodev.brunolanches.services.validation.driver;
 
-import com.pinhobrunodev.brunolanches.services.validation.user.UserInsertValidator;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.ElementType;

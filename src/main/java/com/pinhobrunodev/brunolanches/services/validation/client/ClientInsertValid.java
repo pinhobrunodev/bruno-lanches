@@ -1,4 +1,4 @@
-package com.pinhobrunodev.brunolanches.services.validation.user;
+package com.pinhobrunodev.brunolanches.services.validation.client;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -7,12 +7,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = UserUpdateValidator.class)
+@Constraint(validatedBy = ClientInsertValidator.class)
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 
 // nome da annotation
-public @interface UserUpdateValid {
+public @interface ClientInsertValid {
     String message() default "Validation error";
 
     Class<?>[] groups() default {};

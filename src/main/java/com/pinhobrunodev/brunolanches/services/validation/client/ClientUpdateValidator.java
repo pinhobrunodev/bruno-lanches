@@ -1,8 +1,8 @@
-package com.pinhobrunodev.brunolanches.services.validation.user;
+package com.pinhobrunodev.brunolanches.services.validation.client;
 
-import com.pinhobrunodev.brunolanches.dto.user.UserUpdateDTO;
-import com.pinhobrunodev.brunolanches.entities.User;
-import com.pinhobrunodev.brunolanches.repositories.UserRepository;
+import com.pinhobrunodev.brunolanches.dto.client.ClientUpdateDTO;
+import com.pinhobrunodev.brunolanches.entities.Client;
+import com.pinhobrunodev.brunolanches.repositories.ClientRepository;
 import com.pinhobrunodev.brunolanches.resources.exceptions.FieldMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
@@ -14,38 +14,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid, UserUpdateDTO> {
+public class ClientUpdateValidator implements ConstraintValidator<ClientUpdateValid, ClientUpdateDTO> {
 
     @Autowired
     private HttpServletRequest request;
 
     @Autowired
-    private UserRepository repository;
+    private ClientRepository repository;
 
     @Override
-    public void initialize(UserUpdateValid ann) {
+    public void initialize(ClientUpdateValid ann) {
     }
 
 
     @Override
-    public boolean isValid(UserUpdateDTO dto, ConstraintValidatorContext context) {
+    public boolean isValid(ClientUpdateDTO dto, ConstraintValidatorContext context) {
 
         var uriVars = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
         long userId = Long.parseLong(uriVars.get("id"));
 
         List<FieldMessage> list = new ArrayList<>();
 
-        User user = repository.findByEmail(dto.getEmail());
-        User user1 = repository.findByCpf(dto.getCpf());
-        User user2 = repository.findByPhone(dto.getPhone());
+        Client client = repository.findByEmail(dto.getEmail());
+        Client client1 = repository.findByCpf(dto.getCpf());
+        Client client2 = repository.findByPhone(dto.getPhone());
 
-        if (user != null && userId != user.getId()) {
+        if (client != null && userId != client.getId()) {
             list.add(new FieldMessage("email", "Email already exists"));
         }
-        if (user1 != null && userId != user1.getId()) {
+        if (client1 != null && userId != client1.getId()) {
             list.add(new FieldMessage("cpf", "CPF already exists"));
         }
-        if (user2 != null && userId != user2.getId()) {
+        if (client2 != null && userId != client2.getId()) {
             list.add(new FieldMessage("phone", "Phone already exists"));
         }
 

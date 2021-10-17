@@ -1,8 +1,8 @@
-package com.pinhobrunodev.brunolanches.services.validation.user;
+package com.pinhobrunodev.brunolanches.services.validation.client;
 
-import com.pinhobrunodev.brunolanches.dto.user.UserInsertDTO;
-import com.pinhobrunodev.brunolanches.entities.User;
-import com.pinhobrunodev.brunolanches.repositories.UserRepository;
+import com.pinhobrunodev.brunolanches.dto.client.ClientInsertDTO;
+import com.pinhobrunodev.brunolanches.entities.Client;
+import com.pinhobrunodev.brunolanches.repositories.ClientRepository;
 import com.pinhobrunodev.brunolanches.resources.exceptions.FieldMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,32 +11,32 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserInsertValidator implements ConstraintValidator<UserInsertValid, UserInsertDTO> {
+public class ClientInsertValidator implements ConstraintValidator<ClientInsertValid, ClientInsertDTO> {
 
     @Autowired
-    private UserRepository repository;
+    private ClientRepository repository;
 
     @Override
-    public void initialize(UserInsertValid ann) {
+    public void initialize(ClientInsertValid ann) {
     }
 
 
     @Override
-    public boolean isValid(UserInsertDTO dto, ConstraintValidatorContext context) {
+    public boolean isValid(ClientInsertDTO dto, ConstraintValidatorContext context) {
 
         List<FieldMessage> list = new ArrayList<>();
 
-        User user = repository.findByEmail(dto.getEmail());
-        User user1 = repository.findByCpf(dto.getCpf());
-        User user2 = repository.findByPhone(dto.getPhone());
+        Client client = repository.findByEmail(dto.getEmail());
+        Client client1 = repository.findByCpf(dto.getCpf());
+        Client client2 = repository.findByPhone(dto.getPhone());
 
-        if (user != null) {
+        if (client != null) {
             list.add(new FieldMessage("email","Email already exists"));
         }
-        if (user1 != null){
+        if (client1 != null){
             list.add(new FieldMessage("cpf","CPF already exists"));
         }
-        if (user2 != null){
+        if (client2 != null){
             list.add(new FieldMessage("phone","Phone already exists"));
         }
 

@@ -2,11 +2,11 @@ package com.pinhobrunodev.brunolanches.resources;
 
 
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.user.ShowUserInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserInsertDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserPagedSearchDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserUpdateDTO;
-import com.pinhobrunodev.brunolanches.services.UserService;
+import com.pinhobrunodev.brunolanches.dto.client.ShowClientInfoDTO;
+import com.pinhobrunodev.brunolanches.dto.client.ClientInsertDTO;
+import com.pinhobrunodev.brunolanches.dto.client.ClientPagedSearchDTO;
+import com.pinhobrunodev.brunolanches.dto.client.ClientUpdateDTO;
+import com.pinhobrunodev.brunolanches.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,22 +19,22 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserResource {
+@RequestMapping(value = "/clients")
+public class ClientResource {
 
     @Autowired
-    private UserService service;
+    private ClientService service;
 
 
     @PostMapping(value = "/save")
-    public ResponseEntity<Void> save( @Valid @RequestBody UserInsertDTO dto) {
+    public ResponseEntity<Void> save( @Valid @RequestBody ClientInsertDTO dto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         service.save(dto);
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping(value = "/update/{id}")
-    public ResponseEntity<ShowUserInfoDTO> update( @PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto) {
+    public ResponseEntity<ShowClientInfoDTO> update(@PathVariable Long id, @Valid @RequestBody ClientUpdateDTO dto) {
         return ResponseEntity.ok().body(service.update(dto, id));
     }
 
@@ -45,17 +45,17 @@ public class UserResource {
     }
 
     @GetMapping(value = "/by-id/{id}")
-    public ResponseEntity<ShowUserInfoDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<ShowClientInfoDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
     @GetMapping(value = "/by-name")
-    public ResponseEntity<ShowUserInfoDTO> findByName(@RequestParam String name) {
+    public ResponseEntity<ShowClientInfoDTO> findByName(@RequestParam String name) {
         return ResponseEntity.ok().body(service.findByName(name));
     }
 
     @GetMapping
-    public ResponseEntity<List<ShowUserInfoDTO>> findAll() {
+    public ResponseEntity<List<ShowClientInfoDTO>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
     }
 
@@ -76,7 +76,7 @@ public class UserResource {
 
 
     @GetMapping(value = "/paged-search")
-    public ResponseEntity<Page<UserPagedSearchDTO>> pagedSearch(Pageable pageable) {
+    public ResponseEntity<Page<ClientPagedSearchDTO>> pagedSearch(Pageable pageable) {
         return ResponseEntity.ok().body(service.pagedSearch(pageable));
     }
 

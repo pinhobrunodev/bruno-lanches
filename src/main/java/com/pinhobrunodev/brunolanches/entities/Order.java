@@ -28,7 +28,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    public User user;
+    public Client client;
     @ManyToOne
     @JoinColumn(name = "driver_id")
     public Driver driver;
@@ -52,12 +52,12 @@ public class Order {
         return items;
     }
 
-    public User getUser() {
-        return user;
+    public Client getUser() {
+        return client;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Client client) {
+        this.client = client;
     }
 
     public Driver getDriver() {

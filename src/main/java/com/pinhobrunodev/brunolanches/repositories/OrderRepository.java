@@ -22,17 +22,17 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT DISTINCT obj FROM Order obj WHERE  obj.status = 2")
     List<Order> showAllInProgressOrders();
 
-    @Query("SELECT obj FROM Order obj JOIN  FETCH  obj.user u WHERE  u.id = :id AND obj.status = 2")
+    @Query("SELECT obj FROM Order obj JOIN  FETCH  obj.client u WHERE  u.id = :id AND obj.status = 2")
     List<Order> showAllInProgressOrdersByUserId(Long id);
 
-    @Query("SELECT obj FROM Order obj JOIN  FETCH  obj.user u WHERE  u.id = :id AND obj.status = 0")
+    @Query("SELECT obj FROM Order obj JOIN  FETCH  obj.client u WHERE  u.id = :id AND obj.status = 0")
     List<Order> showAllDeliveredOrdersByUserId(Long id);
 
-    @Query("SELECT obj FROM Order obj JOIN  FETCH  obj.user u WHERE  u.id = :id AND obj.status = 1")
+    @Query("SELECT obj FROM Order obj JOIN  FETCH  obj.client u WHERE  u.id = :id AND obj.status = 1")
     List<Order> showAllPendingOrdersByUserId(Long id);
 
     //*
-    @Query("SELECT  obj  FROM Order obj JOIN FETCH  obj.user u WHERE  u.id = :id")
+    @Query("SELECT  obj  FROM Order obj JOIN FETCH  obj.client u WHERE  u.id = :id")
     List<Order> showAllOrdersByUserId(Long id);
 
     @Query("SELECT  obj FROM Order obj JOIN  FETCH  obj.driver d WHERE d.id = :id AND obj.status=0 ")

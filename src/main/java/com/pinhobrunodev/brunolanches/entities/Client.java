@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_user")
-public class User {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +36,7 @@ public class User {
     private Instant updatedAt;
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "client")
     private final Set<Order> orders = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -44,7 +44,7 @@ public class User {
     private final Set<Role> roles = new HashSet<>();
 
 
-    public User() {
+    public Client() {
     }
 
     public Set<Role> getRoles() {

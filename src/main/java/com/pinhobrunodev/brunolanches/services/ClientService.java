@@ -2,15 +2,15 @@ package com.pinhobrunodev.brunolanches.services;
 
 import com.pinhobrunodev.brunolanches.dto.order.ShowOrderInfoDTO;
 import com.pinhobrunodev.brunolanches.dto.role.RoleDTO;
-import com.pinhobrunodev.brunolanches.dto.user.ShowUserInfoDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserInsertDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserPagedSearchDTO;
-import com.pinhobrunodev.brunolanches.dto.user.UserUpdateDTO;
+import com.pinhobrunodev.brunolanches.dto.client.ShowClientInfoDTO;
+import com.pinhobrunodev.brunolanches.dto.client.ClientInsertDTO;
+import com.pinhobrunodev.brunolanches.dto.client.ClientPagedSearchDTO;
+import com.pinhobrunodev.brunolanches.dto.client.ClientUpdateDTO;
+import com.pinhobrunodev.brunolanches.entities.Client;
 import com.pinhobrunodev.brunolanches.entities.Role;
-import com.pinhobrunodev.brunolanches.entities.User;
 import com.pinhobrunodev.brunolanches.repositories.OrderRepository;
 import com.pinhobrunodev.brunolanches.repositories.RoleRepository;
-import com.pinhobrunodev.brunolanches.repositories.UserRepository;
+import com.pinhobrunodev.brunolanches.repositories.ClientRepository;
 import com.pinhobrunodev.brunolanches.services.exceptions.DatabaseException;
 import com.pinhobrunodev.brunolanches.services.exceptions.ResourceNotFoundException;
 import com.pinhobrunodev.brunolanches.services.exceptions.UnprocessableActionException;
@@ -28,13 +28,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class ClientService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserRepository repository;
+    private ClientRepository repository;
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
@@ -42,17 +42,17 @@ public class UserService {
 
 
     @Transactional
-    public void save(UserInsertDTO dto) {
-        User entity = new User();
+    public void save(ClientInsertDTO dto) {
+        Client entity = new Client();
         repository.save(copyDtoToEntity(entity, dto));
     }
 
     @Transactional
-    public ShowUserInfoDTO update(UserUpdateDTO dto, Long id) {
+    public ShowClientInfoDTO update(ClientUpdateDTO dto, Long id) {
         try {
-            User aux = toUpdate(id, dto);
+            Client aux = toUpdate(id, dto);
             repository.save(aux);
-            return new ShowUserInfoDTO(aux);
+            return new ShowClientInfoDTO(aux);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found :" + id);
         }
@@ -69,31 +69,31 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public ShowUserInfoDTO findById(Long id) {
-        return repository.findById(id).map(ShowUserInfoDTO::new).orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+    public ShowClientInfoDTO findById(Long id) {
+        return repository.findById(id).map(ShowClientInfoDTO::new).orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
     }
 
     @Transactional(readOnly = true)
-    public ShowUserInfoDTO findByName(String name) {
-        User aux = repository.findByName(name.substring(0, 1).toUpperCase().concat(name.substring(1)));
+    public ShowClientInfoDTO findByName(String name) {
+        Client aux = repository.findByName(name.substring(0, 1).toUpperCase().concat(name.substring(1)));
         if (aux == null) {
             throw new ResourceNotFoundException("Name not found :" + name);
         }
-        return new ShowUserInfoDTO(aux);
+        return new ShowClientInfoDTO(aux);
     }
 
 
     // Can be Admin "All Users of the app" screen.
     @Transactional(readOnly = true)
-    public List<ShowUserInfoDTO> findAll() {
-        return repository.findAll().stream().map(ShowUserInfoDTO::new).collect(Collectors.toList());
+    public List<ShowClientInfoDTO> findAll() {
+        return repository.findAll().stream().map(ShowClientInfoDTO::new).collect(Collectors.toList());
     }
 
     // Can be Admin "Paged All Users of the app" screen.
     @Transactional(readOnly = true)
-    public Page<UserPagedSearchDTO> pagedSearch(Pageable pageable) {
-        Page<User> result = repository.findAll(pageable);
-        return result.map(UserPagedSearchDTO::new);
+    public Page<ClientPagedSearchDTO> pagedSearch(Pageable pageable) {
+        Page<Client> result = repository.findAll(pageable);
+        return result.map(ClientPagedSearchDTO::new);
     }
 
     // Can be "User PENDING Orders - PENDING " screen.
@@ -117,7 +117,7 @@ public class UserService {
 
     // Auxiliary methods
 
-    public User copyDtoToEntity(User entity, UserInsertDTO dto) {
+    public Client copyDtoToEntity(Client entity, ClientInsertDTO dto) {
         entity.setName(dto.getName());
         entity.setCpf(dto.getCpf());
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -136,8 +136,8 @@ public class UserService {
         return entity;
     }
 
-    public User toUpdate(Long id, UserUpdateDTO dto) {
-        User aux = repository.getOne(id);
+    public Client toUpdate(Long id, ClientUpdateDTO dto) {
+        Client aux = repository.getOne(id);
         aux.setName(dto.getName());
         aux.setCpf(dto.getCpf());
         aux.setPhone(dto.getPhone());

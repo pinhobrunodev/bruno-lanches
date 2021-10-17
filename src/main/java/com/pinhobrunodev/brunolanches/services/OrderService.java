@@ -9,7 +9,7 @@ import com.pinhobrunodev.brunolanches.entities.enums.OrderStatus;
 import com.pinhobrunodev.brunolanches.repositories.DriverRepository;
 import com.pinhobrunodev.brunolanches.repositories.OrderRepository;
 import com.pinhobrunodev.brunolanches.repositories.ProductRepository;
-import com.pinhobrunodev.brunolanches.repositories.UserRepository;
+import com.pinhobrunodev.brunolanches.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ public class OrderService {
 
 
     @Autowired
-    private UserRepository userRepository;
+    private ClientRepository clientRepository;
     @Autowired
     private DriverRepository driverRepository;
     @Autowired
@@ -70,7 +70,7 @@ public class OrderService {
     // Auxiliary methods
 
     public Order copyDtoToEntity(Order entity, OrderDTO dto) {
-        entity.setUser(userRepository.getOne(dto.getUser_id()));
+        entity.setUser(clientRepository.getOne(dto.getUser_id()));
         entity.setStatus(OrderStatus.PENDING);
         entity.setInProgress(Boolean.FALSE);
         for (ProductDTO x : dto.getItems()) {

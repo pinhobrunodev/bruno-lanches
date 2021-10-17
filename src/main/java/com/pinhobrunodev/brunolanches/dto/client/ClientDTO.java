@@ -1,4 +1,4 @@
-package com.pinhobrunodev.brunolanches.dto.user;
+package com.pinhobrunodev.brunolanches.dto.client;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pinhobrunodev.brunolanches.dto.role.RoleDTO;
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDTO {
+public class ClientDTO {
 
     private Long id;
     @NotBlank(message = "Mandatory field")
@@ -32,7 +32,7 @@ public class UserDTO {
     private final List<RoleDTO> roles = new ArrayList<>();
 
 
-    public UserDTO() {
+    public ClientDTO() {
 
     }
 

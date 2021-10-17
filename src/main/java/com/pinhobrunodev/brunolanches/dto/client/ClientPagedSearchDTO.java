@@ -1,30 +1,32 @@
-package com.pinhobrunodev.brunolanches.dto.user;
+package com.pinhobrunodev.brunolanches.dto.client;
 
-
-import com.pinhobrunodev.brunolanches.entities.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.pinhobrunodev.brunolanches.entities.Client;
 
 import java.time.LocalDate;
 
-public class ShowUserInfoDTO {
+public class ClientPagedSearchDTO {
     private Long id;
     private String name;
     private String phone;
     private String email;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate date;
-    private String address;
 
-    public ShowUserInfoDTO() {
+
+    public ClientPagedSearchDTO() {
 
     }
 
-    public ShowUserInfoDTO(User entity) {
+
+    public ClientPagedSearchDTO(Client entity) {
         id = entity.getId();
         name = entity.getName();
         phone = entity.getPhone();
         email = entity.getEmail();
         date = entity.getDate();
-        address = entity.getAddress();
     }
+
 
     public Long getId() {
         return id;
@@ -41,7 +43,6 @@ public class ShowUserInfoDTO {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public String getPhone() {
         return phone;
@@ -65,13 +66,5 @@ public class ShowUserInfoDTO {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 }
