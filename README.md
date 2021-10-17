@@ -46,11 +46,11 @@
 ## 📋 Diagrama de Classe
 
 
-![Diagrama](https://user-images.githubusercontent.com/60756219/137605588-04905ab8-57dc-431d-9af8-8ca84b75917b.png)
 
 
 
 
+![aa](https://user-images.githubusercontent.com/60756219/137606967-bb454d21-ac92-415e-a7f4-4237fa8eddc2.png)
 
 
 
