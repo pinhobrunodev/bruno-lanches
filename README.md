@@ -17,6 +17,9 @@
 
 ### Bom, este projeto tem como objetivo simular um comportamento de um loja de alimentos que possui seus próprios produtos e realiza o serviço de **Delivery** com Clientes e Drivers ( Entregadores )</i>.
 
+
+## OBS :  <code>PRETENDO REFAZER ESSE PROJETO COM NOVAS FUNCIONALIDADES</code>
+
 #
 
 
